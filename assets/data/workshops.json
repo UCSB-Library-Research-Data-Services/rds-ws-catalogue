@@ -1,0 +1,290 @@
+{
+  "workshops": [
+    {
+      "id": "ws-collecting-apis",
+      "title": "Collecting Cultural Heritage Data with the DPLA API",
+      "summary": "Conceptual intro + hands-on exploration with Postman.",
+      "description": "Longer description here...",
+      "series_id": "ser-intro-apis",
+      "format_id": "fmt-online",
+      "area_ids": ["area-data-mgmt", "area-humanities"],
+      "audience_ids": ["aud-grad", "aud-faculty", "aud-staff"],
+      "instructor_ids": ["inst-jairo"],
+      "department_ids": ["dept-rds"],
+      "offering_ids": ["off-2026-02-11-1000"],
+      "tags": ["apis", "postman", "data-collection"],
+      "is_active": true
+    },
+    {
+      "id": "ws-reproducible-methods",
+      "title": "Reproducible Methods with Protocols.io",
+      "summary": "Protocols.io for documenting and sharing research methods.",
+      "description": "Longer description here...",
+      "series_id": "",
+      "format_id": "fmt-online",
+      "area_ids": ["area-data-mgmt", "area-sciences"],
+      "audience_ids": ["aud-grad", "aud-faculty"],
+      "instructor_ids": ["inst-jade"],
+      "department_ids": ["dept-rds", "dept-rande"],
+      "offering_ids": ["off-2026-01-23-1200"],
+      "tags": ["apis", "python", "data-collection"],
+      "is_active": true
+    },
+    {
+      "id": "ws-obsidian-research",
+      "title": "Document Your Research Thinking w/ Obsidian",
+      "summary": "Learn to use Obsidian for documenting research thinking and note-taking.",
+      "description": "Workshop on using Obsidian for research documentation and knowledge management.",
+      "series_id": "",
+      "format_id": "fmt-online",
+      "area_ids": ["area-data-mgmt"],
+      "audience_ids": ["aud-grad", "aud-faculty", "aud-staff"],
+      "instructor_ids": ["inst-jairo"],
+      "department_ids": ["dept-rds", "dept-rande"],
+      "offering_ids": ["off-2026-01-29-1200"],
+      "tags": ["knowledge-management", "research-documentation", "obsidian"],
+      "is_active": true
+    },
+    {
+      "id": "ws-nocode-databases",
+      "title": "Beyond Spreadsheets: A Practical Guide to No-Code Databases",
+      "summary": "Explore no-code database solutions beyond traditional spreadsheets.",
+      "description": "Practical guide to using no-code database platforms for research data management.",
+      "series_id": "",
+      "format_id": "fmt-online",
+      "area_ids": ["area-data-mgmt"],
+      "audience_ids": ["aud-grad", "aud-faculty", "aud-staff"],
+      "instructor_ids": ["inst-jairo"],
+      "department_ids": ["dept-rds", "dept-rande"],
+      "offering_ids": ["off-2026-02-10-1200"],
+      "tags": ["databases", "data-management", "no-code"],
+      "is_active": true
+    },
+    {
+      "id": "ws-dynamic-portfolio",
+      "title": "From Résumé to Dynamic Portfolio",
+      "summary": "Create a dynamic portfolio to showcase your research and professional work.",
+      "description": "Learn to build a dynamic online portfolio that goes beyond traditional resumes.",
+      "series_id": "",
+      "format_id": "fmt-online",
+      "area_ids": ["area-data-mgmt"],
+      "audience_ids": ["aud-grad", "aud-postdoc", "aud-faculty", "aud-staff"],
+      "instructor_ids": ["inst-jairo", "inst-anne"],
+      "department_ids": ["dept-rds", "dept-rande"],
+      "offering_ids": ["off-2026-02-24-1200"],
+      "tags": ["portfolio", "professional-development", "web-presence"],
+      "is_active": true
+    },
+    {
+      "id": "ws-beyond-publishing",
+      "title": "Beyond Traditional Publishing: Research Outputs You Can Share and Get Credit For",
+      "summary": "Explore alternative research outputs and how to get recognition for them.",
+      "description": "Learn about various research outputs beyond traditional publications and how to share and get credit for them.",
+      "series_id": "",
+      "format_id": "fmt-online",
+      "area_ids": ["area-data-mgmt"],
+      "audience_ids": ["aud-grad", "aud-postdoc", "aud-faculty"],
+      "instructor_ids": ["inst-jade", "inst-renata"],
+      "department_ids": ["dept-rds", "dept-rande"],
+      "offering_ids": ["off-2026-03-04-1200"],
+      "tags": ["open-science", "research-outputs", "scholarly-communication"],
+      "is_active": true
+    },
+    {
+        "id": "ws-ws-python",
+        "title": "Web Scraping with Python",
+        "summary": "Learn how to scrape data from websites using Python libraries.",
+        "description": "This workshop covers the basics of web scraping using Python's BeautifulSoup and Requests libraries. Participants will learn how to extract data from HTML pages and save it for analysis.",
+        "series_id": "",
+        "format_id": "fmt-in-person",
+        "area_ids": ["area-data-mgmt", "area-sciences"],
+        "audience_ids": ["aud-grad", "aud-faculty", "aud-staff"],
+        "instructor_ids": ["inst-julien", "inst-jairo", "inst-jose"],
+        "department_ids": ["dept-dream", "dept-rds"],
+        "offering_ids": ["off-2026-01-27-1000", "off-2026-01-29-1000"],
+        "tags": ["web-scraping", "python", "data-collection"],
+        "is_active": true
+    }
+  ],
+
+  "series": [
+    {
+        "id": "ser-intro-apis",
+        "workshop_ids": ["ws-collecting-apis"],
+        "title": "Unlocking Data: A Gentle Introduction to APIs",
+        "description": "This series introduces participants to the fundamentals of APIs (Application Programming Interfaces) and their practical applications in data collection and analysis. Through a combination of conceptual overviews and hands-on sessions, attendees will learn how to interact with APIs from user interfaces, and also how to create requests and select data using Python.",
+        "department_ids": ["dept-rds"],
+        "tags": ["apis", "data-collection", "python"]
+    }
+  ],
+
+  "offerings": [
+    {
+      "id": "off-2026-02-11-1000",
+      "workshop_id": "ws-collecting-apis",
+      "start": "2026-02-11T10:00:00-08:00",
+      "end": "2026-02-11T11:30:00-08:00",
+      "quarter": "Winter",
+      "year": 2026,
+      "location": "Zoom",
+      "registration_url": "https://example.org/register",
+      "capacity": 40
+    },
+    {
+      "id": "off-2026-01-23-1200",
+      "workshop_id": "ws-reproducible-methods",
+      "start": "2026-01-23T12:00:00-08:00",
+      "end": "2026-01-23T13:30:00-08:00",
+      "quarter": "Spring",
+      "year": 2026,
+      "location": "In Person - Library Room 123",
+      "registration_url": "https://example.org/register",
+      "capacity": 30
+    },
+    {
+      "id": "off-2026-01-29-1200",
+      "workshop_id": "ws-obsidian-research",
+      "start": "2026-01-29T12:00:00-08:00",
+      "end": "2026-01-29T13:00:00-08:00",
+      "quarter": "Winter",
+      "year": 2026,
+      "location": "Zoom",
+      "registration_url": "https://example.org/register",
+      "capacity": 40
+    },
+    {
+      "id": "off-2026-02-10-1200",
+      "workshop_id": "ws-nocode-databases",
+      "start": "2026-02-10T12:00:00-08:00",
+      "end": "2026-02-10T13:00:00-08:00",
+      "quarter": "Winter",
+      "year": 2026,
+      "location": "Zoom",
+      "registration_url": "https://example.org/register",
+      "capacity": 40
+    },
+    {
+      "id": "off-2026-02-24-1200",
+      "workshop_id": "ws-dynamic-portfolio",
+      "start": "2026-02-24T12:00:00-08:00",
+      "end": "2026-02-24T13:00:00-08:00",
+      "quarter": "Winter",
+      "year": 2026,
+      "location": "Zoom",
+      "registration_url": "https://example.org/register",
+      "capacity": 40
+    },
+    {
+      "id": "off-2026-03-04-1200",
+      "workshop_id": "ws-beyond-publishing",
+      "start": "2026-03-04T12:00:00-08:00",
+      "end": "2026-03-04T13:00:00-08:00",
+      "quarter": "Winter",
+      "year": 2026,
+      "location": "Zoom",
+      "registration_url": "https://example.org/register",
+      "capacity": 40
+    },
+    {
+        "id": "off-2026-01-27-1000",
+        "workshop_id": "ws-ws-python",
+        "start": "2026-01-27T10:00:00-08:00",
+        "end": "2026-01-27T12:00:00-08:00",
+        "quarter": "Winter",
+        "year": 2026,
+        "location": "Library",
+        "registration_url": "https://example.org/register",
+        "capacity": 25
+    },
+    {
+        "id": "off-2026-01-29-1000",
+        "workshop_id": "ws-ws-python",
+        "start": "2026-01-29T10:00:00-08:00",
+        "end": "2026-01-29T12:00:00-08:00",
+        "quarter": "Winter",
+        "year": 2026,
+        "location": "Library",
+        "registration_url": "https://example.org/register",
+        "capacity": 25
+    }
+  ],
+
+  "instructors": [
+    {
+      "id": "inst-jairo",
+      "name": "Jairo Melo",
+      "department_id": "dept-rds",
+      "title": "Digital Humanities Research Facilitator",
+      "email": "jmeloflorez@ucsb.edu"
+    },
+    {
+      "id": "inst-jade",
+      "name": "Xiuqi 'Jade' Li",
+      "department_id": "dept-rds",
+      "title": "Open Science Librarian",
+      "email": "xiuqili@ucsb.edu"
+    },
+    {
+        "id": "inst-renata",
+        "name": "Renata Curty",
+        "department_id": "dept-rds",
+        "title": "Research Data Facilitator",
+        "email": "rcurty@ucsb.edu"
+    },
+    {
+        "id": "inst-julien",
+        "name": "Julien Brun",
+        "department_id": "dept-rds",
+        "title": "Research Data Facilitator",
+        "email": "jb160@ucsb.edu"
+    },
+    {
+        "id": "inst-greg",
+        "name": "Greg Janée",
+        "department_id": "dept-rds",
+        "title": "Director, Research Data Services",
+        "email": "gjanee@ucsb.edu"
+    },
+    {
+        "id": "inst-anne",
+        "name": "Anne Cong-Huyen",
+        "department_id": "dept-rande",
+        "title": "Research & Engagement Librarian",
+        "email": "annech@ucsb.edu"
+    },
+    {
+        "id": "inst-jose",
+        "name": "Jose Niño Muriel",
+        "department_id": "dept-dream",
+        "title": "Data Science Community Lead",
+        "email": "jose_nino@ucsb.edu"
+    }
+  ],
+
+  "departments": [
+    { "id": "dept-rds", "label": "Research Data Services" },
+    { "id": "dept-rande", "label": "Research and Engagement" },
+    { "id": "dept-dream", "label": "DREAM Lab" }
+  ],
+
+  "formats": [
+    { "id": "fmt-online", "label": "Online" },
+    { "id": "fmt-in-person", "label": "In person" },
+    { "id": "fmt-hybrid", "label": "Hybrid" }
+  ],
+
+  "areas": [
+    { "id": "area-humanities", "label": "Humanities" },
+    { "id": "area-sciences", "label": "Sciences & Engineering" },
+    { "id": "area-data-mgmt", "label": "Data management" },
+    { "id": "area-social-sciences", "label": "Social sciences" }
+  ],
+
+  "audiences": [
+    { "id": "aud-undergrad", "label": "Undergraduates" },
+    { "id": "aud-grad", "label": "Graduates" },
+    { "id": "aud-postdoc", "label": "Postdocs" },
+    { "id": "aud-faculty", "label": "Faculty" },
+    { "id": "aud-staff", "label": "Staff" }
+  ]
+}

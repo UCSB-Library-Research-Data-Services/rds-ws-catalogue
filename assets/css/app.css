@@ -1,0 +1,187 @@
+/* Custom Styles for Workshop Catalogue */
+
+:root {
+    --primary-color: #003660;
+    --secondary-color: #febc11;
+    --light-bg: #f8f9fa;
+    --border-color: #dee2e6;
+}
+
+body {
+    background-color: var(--light-bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Header Styles */
+header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #004d7a 100%);
+    color: white;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    color: white;
+    font-weight: 700;
+}
+
+header .lead {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Workshop Card Styles */
+.workshop-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+}
+
+.workshop-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.workshop-card .card-header {
+    border-bottom: 3px solid var(--secondary-color);
+}
+
+.workshop-card .card-title {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.instructor-link {
+    cursor: pointer;
+    text-decoration: underline;
+    color: var(--primary-color);
+}
+
+/* Offering Item Styles */
+.offering-item {
+    background-color: #fff;
+    border-left: 3px solid var(--primary-color) !important;
+}
+
+.offering-item:hover {
+    background-color: #f0f7ff;
+}
+
+/* Badge Styles */
+.badge {
+    font-weight: 500;
+    padding: 0.4em 0.6em;
+}
+
+/* Filter Section Styles */
+.card-header.bg-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #004d7a 100%) !important;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 54, 96, 0.25);
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #002847;
+    border-color: #002847;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+/* Results Count */
+#resultsCount {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Icons */
+.bi {
+    margin-right: 0.25rem;
+}
+
+/* Footer */
+footer {
+    background-color: white;
+    margin-top: 3rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .workshop-card {
+        margin-bottom: 1rem;
+    }
+
+    .offerings {
+        font-size: 0.9rem;
+    }
+}
+
+/* Loading Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.workshop-card {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Alert Styles */
+.alert {
+    border-radius: 0.5rem;
+    border-left: 4px solid;
+}
+
+.alert-info {
+    border-left-color: #0dcaf0;
+}
+
+.alert-danger {
+    border-left-color: #dc3545;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Card Body Spacing */
+.card-body small {
+    line-height: 1.8;
+}
+
+/* Sort Dropdown */
+#sortBy {
+    min-width: 150px;
+}

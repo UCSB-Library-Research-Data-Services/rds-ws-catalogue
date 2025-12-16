@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RDS Workshops Catalogue</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/app.css">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <header class="py-4 mb-4 border-bottom">
+                <div class="container">
+                    <h1 class="display-4 mb-2">Research Data Services</h1>
+                    <p class="lead text-muted">Workshop Catalogue</p>
+                </div>
+            </header>
+
+            <div class="container">
+                <!-- Filters Section -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0"><i class="bi bi-funnel"></i> Filters</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <!-- Search Box -->
+                                    <div class="col-md-6">
+                                        <label for="searchInput" class="form-label">Search</label>
+                                        <input type="text" class="form-control" id="searchInput" placeholder="Search workshops...">
+                                    </div>
+
+                                    <!-- Area Filter -->
+                                    <div class="col-md-6">
+                                        <label for="areaFilter" class="form-label">Research Area</label>
+                                        <select class="form-select" id="areaFilter">
+                                            <option value="">All Areas</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Audience Filter -->
+                                    <div class="col-md-6">
+                                        <label for="audienceFilter" class="form-label">Audience</label>
+                                        <select class="form-select" id="audienceFilter">
+                                            <option value="">All Audiences</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Format Filter -->
+                                    <div class="col-md-6">
+                                        <label for="formatFilter" class="form-label">Format</label>
+                                        <select class="form-select" id="formatFilter">
+                                            <option value="">All Formats</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Department Filter -->
+                                    <div class="col-md-6">
+                                        <label for="departmentFilter" class="form-label">Department</label>
+                                        <select class="form-select" id="departmentFilter">
+                                            <option value="">All Departments</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Instructor Filter -->
+                                    <div class="col-md-6">
+                                        <label for="instructorFilter" class="form-label">Instructor</label>
+                                        <select class="form-select" id="instructorFilter">
+                                            <option value="">All Instructors</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button class="btn btn-secondary btn-sm" id="clearFilters">
+                                            <i class="bi bi-x-circle"></i> Clear All Filters
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Count -->
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 id="resultsCount" class="mb-0">Loading workshops...</h5>
+                            <div>
+                                <label for="sortBy" class="form-label me-2 mb-0">Sort by:</label>
+                                <select class="form-select form-select-sm d-inline-block w-auto" id="sortBy">
+                                    <option value="date">Date</option>
+                                    <option value="title">Title</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workshop List -->
+                <div class="row" id="workshopList">
+                    <!-- Workshop cards will be inserted here -->
+                </div>
+            </div>
+
+            <footer class="py-4 mt-5 border-top">
+                <div class="container">
+                    <p class="text-center text-muted mb-0">
+                        &copy; 2026 Research Data Services | UCSB Library
+                    </p>
+                </div>
+            </footer>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+        <script src="assets/js/app.js"></script>
+    </body>
+</html>
