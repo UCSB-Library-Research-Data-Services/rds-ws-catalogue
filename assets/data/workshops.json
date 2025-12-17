@@ -268,9 +268,9 @@
   ],
 
   "formats": [
-    { "id": "fmt-online", "label": "Online" },
-    { "id": "fmt-in-person", "label": "In person" },
-    { "id": "fmt-hybrid", "label": "Hybrid" }
+    { "id": "fmt-online", "label": "Online", "icon": "bi-laptop" },
+    { "id": "fmt-in-person", "label": "In person", "icon": "bi-building" },
+    { "id": "fmt-hybrid", "label": "Hybrid", "icon": "bi-person-video3" }
   ],
 
   "areas": [
