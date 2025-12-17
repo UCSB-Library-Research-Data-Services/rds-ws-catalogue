@@ -17,7 +17,7 @@ class WorkshopCatalogue {
             this.filterAndDisplayWorkshops();
         } catch (error) {
             console.error('Error initializing app:', error);
-            this.showError('Failed to load workshop data. Please refresh the page.');
+            this.showError('Failed to load workshop data <i class="bi bi-emoji-dizzy"></i>');
         }
     }
 
@@ -227,16 +227,16 @@ class WorkshopCatalogue {
                         
                         <div class="mb-3">
                             <small class="text-muted d-block mb-1">
-                                <i class="bi bi-laptop"></i> <strong>Format:</strong> <i class="bi ${format?.icon || 'bi-app'}"></i>
+                                <i class="bi ${format?.icon || 'bi-app'}"></i> ${format?.label || 'Unknown Format'}
                             </small>
                             <small class="text-muted d-block mb-1">
-                                <i class="bi bi-diagram-3"></i> <strong>Areas:</strong> ${areas.join(', ')}
+                                <strong>Areas:</strong> ${areas.join(', ')}
                             </small>
                             <small class="text-muted d-block mb-1">
-                                <i class="bi bi-people"></i> <strong>Audience:</strong> ${audiences.join(', ')}
+                                <strong>Audience:</strong> ${audiences.join(', ')}
                             </small>
                             <small class="text-muted d-block mb-1">
-                                <i class="bi bi-person-badge"></i> <strong>Instructors:</strong> ${instructors}
+                                <strong>Instructors:</strong> ${instructors}
                             </small>
                         </div>
 
