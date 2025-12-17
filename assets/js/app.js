@@ -207,7 +207,7 @@ class WorkshopCatalogue {
     createWorkshopCard(workshop) {
         /*this.data.formats.find(f => f.id === workshop.format_id)*/
         const format = this.data.formats.find(f => f.id === workshop.format_id);
-        const formatLink = `<span class="instructor-link" data-format="${format?.id}">${format?.label || 'Unknown Format'}</span>`;
+        const formatLink = `<span class="filter-element-link" data-format="${format?.id}">${format?.label || 'Unknown Format'}</span>`;
         const areas = workshop.area_ids.map(id => 
             this.data.areas.find(a => a.id === id)?.label
         ).filter(Boolean);
@@ -216,7 +216,7 @@ class WorkshopCatalogue {
         ).filter(Boolean);
         const instructors = workshop.instructor_ids.map(id => {
             const instructor = this.data.instructors.find(i => i.id === id);
-            return `<span class="instructor-link" data-instructor="${id}">${instructor?.name || id}</span>`;
+            return `<span class="filter-element-link" data-instructor="${id}">${instructor?.name || id}</span>`;
         }).join(', ');
         const offerings = this.data.offerings.filter(o => o.workshop_id === workshop.id);
         const series = workshop.series_id ? this.data.series.find(s => s.id === workshop.series_id) : null;

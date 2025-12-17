@@ -49,7 +49,7 @@ header .lead {
     font-size: 1.1rem;
 }
 
-.instructor-link {
+.filter-element-link {
     cursor: pointer;
     text-decoration: underline;
     color: var(--primary-color);
