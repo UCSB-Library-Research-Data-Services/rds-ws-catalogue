@@ -3,14 +3,7 @@ class WorkshopCatalogue {
     constructor() {
         this.data = null;
         this.filteredWorkshops = [];
-        this.filters = {
-            search: '',
-            area: '',
-            audience: '',
-            format: '',
-            department: '',
-            instructor: ''
-        };
+        this.filters = this.getFiltersFromURL();
         this.sortBy = 'date';
         
         this.init();
@@ -87,6 +80,13 @@ class WorkshopCatalogue {
 
         // Populate instructor filter
         this.populateSelect('instructorFilter', this.data.instructors, 'name', 'id');
+
+        document.getElementById('searchInput').value = this.filters.search;
+        document.getElementById('areaFilter').value = this.filters.area;
+        document.getElementById('audienceFilter').value = this.filters.audience;
+        document.getElementById('formatFilter').value = this.filters.format;
+        document.getElementById('departmentFilter').value = this.filters.department;
+        document.getElementById('instructorFilter').value = this.filters.instructor;
     }
 
     populateSelect(elementId, items, labelKey, valueKey) {
@@ -120,6 +120,9 @@ class WorkshopCatalogue {
     }
 
     filterAndDisplayWorkshops() {
+        // Update URL with current filters
+        this.updateURL();
+
         // Filter active workshops
         this.filteredWorkshops = this.data.workshops.filter(workshop => {
             if (!workshop.is_active) return false;
@@ -315,6 +318,36 @@ class WorkshopCatalogue {
             </div>
         `;
     }
+
+    getFiltersFromURL() {
+        const params = new URLSearchParams(window.location.search);
+
+        return {
+            search: params.get('search') || '',
+            area: params.get('area') || '',
+            audience: params.get('audience') || '',
+            format: params.get('format') || '',
+            department: params.get('department') || '',
+            instructor: params.get('instructor') || ''
+        };
+    }
+    
+    updateURL() {
+        const params = new URLSearchParams();
+
+        Object.keys(this.filters).forEach(key => {
+            if (this.filters[key]) {
+                params.set(key, this.filters[key]);
+            }
+        });
+
+        const newURL = params.toString() 
+            ? `${window.location.pathname}?${params.toString()}`
+            : window.location.pathname;
+
+        window.history.pushState({}, '', newURL);
+    }
+
 }
 
 // Initialize the app when DOM is ready
