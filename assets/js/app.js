@@ -59,6 +59,10 @@ class WorkshopCatalogue {
                 const instructorFilter = document.getElementById('instructorFilter');
                 instructorFilter.value = e.target.dataset.instructor;
                 instructorFilter.dispatchEvent(new Event('change'));
+            } else if (e.target.dataset.format) {
+                const formatFilter = document.getElementById('formatFilter');
+                formatFilter.value = e.target.dataset.format;
+                formatFilter.dispatchEvent(new Event('change'));
             }
         })
     }
@@ -201,7 +205,9 @@ class WorkshopCatalogue {
     }
 
     createWorkshopCard(workshop) {
+        /*this.data.formats.find(f => f.id === workshop.format_id)*/
         const format = this.data.formats.find(f => f.id === workshop.format_id);
+        const formatLink = `<span class="instructor-link" data-format="${format?.id}">${format?.label || 'Unknown Format'}</span>`;
         const areas = workshop.area_ids.map(id => 
             this.data.areas.find(a => a.id === id)?.label
         ).filter(Boolean);
@@ -227,7 +233,7 @@ class WorkshopCatalogue {
                         
                         <div class="mb-3">
                             <small class="text-muted d-block mb-1">
-                                <i class="bi ${format?.icon || 'bi-app'}"></i> ${format?.label || 'Unknown Format'}
+                                <i class="bi ${format?.icon || 'bi-app'}"></i> ${formatLink}
                             </small>
                             <small class="text-muted d-block mb-1">
                                 <strong>Areas:</strong> ${areas.join(', ')}
