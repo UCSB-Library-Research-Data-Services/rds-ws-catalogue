@@ -130,6 +130,11 @@ footer {
     margin-top: 3rem;
 }
 
+footer .footer-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     header h1 {
