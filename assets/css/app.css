@@ -1,15 +1,18 @@
 /* Custom Styles for Workshop Catalogue */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
 :root {
     --primary-color: #003660;
     --secondary-color: #febc11;
     --light-bg: #f8f9fa;
     --border-color: #dee2e6;
+    --alert-color: #ef5645;
+    --aqua-color: #04859B;
 }
 
 body {
     background-color: var(--light-bg);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 /* Header Styles */
@@ -21,11 +24,12 @@ header {
 
 header h1 {
     color: white;
-    font-weight: 700;
 }
 
 header .lead {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--secondary-color);
+    font-weight: 500;
+    font-size: x-large;
 }
 
 /* Workshop Card Styles */
@@ -57,12 +61,12 @@ header .lead {
 
 /* Offering Item Styles */
 .offering-item {
-    background-color: #fff;
+    background-color: white;
     border-left: 3px solid var(--primary-color) !important;
 }
 
 .offering-item:hover {
-    background-color: #f0f7ff;
+    background-color: var(--light-bg);
 }
 
 /* Badge Styles */
@@ -164,11 +168,11 @@ footer {
 }
 
 .alert-info {
-    border-left-color: #0dcaf0;
+    border-left-color: var(--aqua-color);
 }
 
 .alert-danger {
-    border-left-color: #dc3545;
+    border-left-color: var(--alert-color);
 }
 
 /* Smooth Scrolling */
