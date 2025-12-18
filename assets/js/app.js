@@ -63,6 +63,10 @@ class WorkshopCatalogue {
                 const formatFilter = document.getElementById('formatFilter');
                 formatFilter.value = e.target.dataset.format;
                 formatFilter.dispatchEvent(new Event('change'));
+            } else if (e.target.dataset.tag) {
+                const searchInput = document.getElementById('searchInput');
+                searchInput.value = e.target.dataset.tag;
+                searchInput.dispatchEvent(new Event('input'));
             }
         })
     }
@@ -133,7 +137,7 @@ class WorkshopCatalogue {
 
             // Search filter
             if (this.filters.search) {
-                const searchText = `${workshop.title} ${workshop.summary} ${workshop.description}`.toLowerCase();
+                const searchText = `${workshop.title} ${workshop.summary} ${workshop.description} ${workshop.tags}`.toLowerCase();
                 if (!searchText.includes(this.filters.search)) return false;
             }
 
@@ -218,6 +222,7 @@ class WorkshopCatalogue {
             const instructor = this.data.instructors.find(i => i.id === id);
             return `<span class="filter-element-link" data-instructor="${id}">${instructor?.name || id}</span>`;
         }).join(', ');
+        const tags = workshop.tags.map(tag => `<span class="badge bg-secondary me-1" style="cursor: pointer;" data-tag="${tag}">${tag}</span>`).join('');
         const offerings = this.data.offerings.filter(o => o.workshop_id === workshop.id);
         const series = workshop.series_id ? this.data.series.find(s => s.id === workshop.series_id) : null;
 
@@ -249,9 +254,7 @@ class WorkshopCatalogue {
                         ${this.createOfferingsSection(offerings)}
 
                         <div class="mt-2">
-                            ${workshop.tags.map(tag => 
-                                `<span class="badge bg-secondary me-1 mb-1">${tag}</span>`
-                            ).join('')}
+                            ${tags}
                         </div>
                     </div>
                 </div>
