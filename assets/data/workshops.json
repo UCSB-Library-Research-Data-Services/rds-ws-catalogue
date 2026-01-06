@@ -34,11 +34,11 @@
       "id": "ws-obsidian-research",
       "title": "Document Your Research Thinking w/ Obsidian",
       "summary": "Learn to use Obsidian for documenting research thinking and note-taking.",
-      "description": "Workshop on using Obsidian for research documentation and knowledge management.",
+      "description": "Research isn’t just about collecting sources or writing papers, there’s a crucial middle stage where ideas take shape: reading, reflecting, drafting, and making connections.\nThis workshop explores how to treat research notes as valuable data — information that deserves to be organized, preserved, and revisited. We’ll use Obsidian, a free, flexible, and local-first note-taking app, to show how you can build a system for documenting your research thinking in plain-text files that you fully control.\nYou’ll learn how to link ideas, structure your notes, and even sync your notes to GitHub for safe, long-term storage, all without needing any coding experience. This workshop is open to everyone, but will be of particular interest to graduate students, faculty, and staff.\nThis event may be photographed or recorded.",
       "series_id": "",
       "format_id": "fmt-in-person",
       "area_ids": ["area-data-mgmt", "area-humanities"],
-      "audience_ids": ["aud-grad", "aud-faculty", "aud-staff"],
+      "audience_ids": ["aud-all", "aud-grad", "aud-faculty", "aud-staff"],
       "instructor_ids": ["inst-jairo"],
       "department_ids": ["dept-rds", "dept-rande"],
       "offering_ids": ["off-2026-01-29-1200"],
@@ -53,7 +53,7 @@
       "series_id": "",
       "format_id": "fmt-online",
       "area_ids": ["area-data-mgmt", "area-humanities"],
-      "audience_ids": ["aud-undergrad", "aud-grad", "aud-faculty", "aud-staff"],
+      "audience_ids": ["aud-all"],
       "instructor_ids": ["inst-jairo"],
       "department_ids": ["dept-rds", "dept-rande"],
       "offering_ids": ["off-2026-02-10-1200"],
@@ -64,11 +64,11 @@
       "id": "ws-dynamic-portfolio",
       "title": "From Résumé to Dynamic Portfolio",
       "summary": "Create a dynamic portfolio to showcase your research and professional work.",
-      "description": "Learn to build a dynamic online portfolio that goes beyond traditional resumes.",
+      "description": "The job market is shifting, and a traditional résumé is only one part of an effective professional presence. A digital portfolio allows you to highlight your skills, experience, and projects in a more dynamic and engaging way.\nIn this 1-hour workshop, you’ll learn how to build a simple, static portfolio website using GitHub Pages, no coding required. We’ll start with an easy-to-customize template and show you how to integrate key elements from your résumé or CV, plus links to platforms like LinkedIn, ORCID, and other professional profiles.\nThis event may be photographed or recorded.",
       "series_id": "",
       "format_id": "fmt-online",
       "area_ids": ["area-data-mgmt"],
-      "audience_ids": ["aud-grad", "aud-postdoc", "aud-faculty", "aud-staff"],
+      "audience_ids": ["aud-undergrad", "aud-grad"],
       "instructor_ids": ["inst-jairo", "inst-anne"],
       "department_ids": ["dept-rds", "dept-rande"],
       "offering_ids": ["off-2026-02-24-1200"],
@@ -79,7 +79,7 @@
       "id": "ws-beyond-publishing",
       "title": "Beyond Traditional Publishing: Research Outputs You Can Share and Get Credit For",
       "summary": "Explore alternative research outputs and how to get recognition for them.",
-      "description": "Learn about various research outputs beyond traditional publications and how to share and get credit for them.",
+      "description": "Researchers create far more than journal articles. Datasets, code, experimental protocols, and event reagents are all valuable research outputs that can be shared, cited, and recognized. This session will introduce practical ways to make these outputs discoverable, citable, and impactful—expanding your scholarly footprint and supporting more transparent, reusable research. Whether you are new to open research practices or looking to strengthen your portfolio, this workshop offers concrete strategies you can apply immediately to your research workflows.\nResearchers from all disciplines are welcome. This workshop will be of particular interest to graduate students, postdocs, and faculty.\nThis event may be photographed or recorded.",
       "series_id": "",
       "format_id": "fmt-online",
       "area_ids": ["area-data-mgmt"],
@@ -94,7 +94,7 @@
         "id": "ws-ws-python",
         "title": "Web Scraping with Python",
         "summary": "Learn how to scrape data from websites using Python libraries.",
-        "description": "This workshop covers the basics of web scraping using Python's BeautifulSoup and Requests libraries. Participants will learn how to extract data from HTML pages and save it for analysis.",
+        "description": "Turn websites into usable data. In this intermediate workshop, you will master web scraping using Python's Requests, Beautiful Soup, and Selenium. Learn to read and navigate the backbone of a website (its HTML content) and automate data extraction from both static and dynamic web pages.\nDesigned for participants with basic knowledge of Python programming.",
         "series_id": "",
         "format_id": "fmt-in-person",
         "area_ids": ["area-data-mgmt", "area-sciences"],
@@ -128,7 +128,7 @@
       "year": 2026,
       "location": "Zoom",
       "registration_url": "https://example.org/register",
-      "capacity": 40
+      "capacity": 60
     },
     {
       "id": "off-2026-01-23-1200",
@@ -193,8 +193,8 @@
         "quarter": "Winter",
         "year": 2026,
         "location": "Library",
-        "registration_url": "https://example.org/register",
-        "capacity": 25
+        "registration_url": "https://shoreline.ucsb.edu/library/rsvp_boot?id=2270303",
+        "capacity": 60
     },
     {
         "id": "off-2026-01-29-1000",
@@ -204,8 +204,8 @@
         "quarter": "Winter",
         "year": 2026,
         "location": "Library",
-        "registration_url": "https://example.org/register",
-        "capacity": 25
+        "registration_url": "https://shoreline.ucsb.edu/library/rsvp_boot?id=2270303",
+        "capacity": 60
     }
   ],
 
@@ -285,6 +285,7 @@
     { "id": "aud-grad", "label": "Graduates" },
     { "id": "aud-postdoc", "label": "Postdocs" },
     { "id": "aud-faculty", "label": "Faculty" },
-    { "id": "aud-staff", "label": "Staff" }
+    { "id": "aud-staff", "label": "Staff" },
+    { "id": "aud-all", "label": "Everyone" }
   ]
 }
