@@ -67,6 +67,17 @@ class WorkshopCatalogue {
                 const searchInput = document.getElementById('searchInput');
                 searchInput.value = e.target.dataset.tag;
                 searchInput.dispatchEvent(new Event('input'));
+            } else if (e.target.classList.contains('toggle-description')) {
+                const descriptionEl = e.target.parentElement;
+                const isExpanded = descriptionEl.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    descriptionEl.classList.remove('expanded');
+                    descriptionEl.innerHTML = descriptionEl.dataset.truncated + ' <span class="toggle-description" title="Show more">[+]</span>';
+                } else {
+                    descriptionEl.classList.add('expanded');
+                    descriptionEl.innerHTML = descriptionEl.dataset.full + ' <span class="toggle-description" title="Show less">[-]</span>';
+                }
             }
         })
     }
@@ -226,15 +237,22 @@ class WorkshopCatalogue {
         const offerings = this.data.offerings.filter(o => o.workshop_id === workshop.id);
         const series = workshop.series_id ? this.data.series.find(s => s.id === workshop.series_id) : null;
 
+        // Handle description truncation
+        const description = workshop.description || workshop.summary;
+        const maxLength = 150;
+        const needsTruncation = description.length > maxLength;
+        const truncatedDesc = needsTruncation ? description.substring(0, maxLength) + '...' : description;
+        const toggleButton = needsTruncation ? ' <span class="toggle-description" title="Show more">[+]</span>' : '';
+
         return `
-            <div class="col-md-6 col-lg-4 mb-4">
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="card h-100 shadow-sm workshop-card">
                     <div class="card-header bg-light">
                         <h5 class="card-title mb-1">${workshop.title}</h5>
                         ${series ? `<small class="text-muted"><i class="bi bi-collection"></i> Part of: ${series.title}</small>` : ''}
                     </div>
                     <div class="card-body">
-                        <p class="card-text">${workshop.summary}</p>
+                        <p class="card-text description-text" style="white-space: pre-line;" data-full="${description}" data-truncated="${truncatedDesc}">${truncatedDesc}${toggleButton}</p>
                         
                         <div class="mb-3">
                             <small class="text-muted d-block mb-1">

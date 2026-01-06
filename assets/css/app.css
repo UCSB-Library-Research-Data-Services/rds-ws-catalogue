@@ -148,6 +148,36 @@ footer .footer-links a {
     .offerings {
         font-size: 0.9rem;
     }
+
+    /* Better text wrapping on small screens */
+    .description-text {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+
+    /* Reduce header padding on mobile */
+    header {
+        padding: 1rem 0 !important;
+    }
+
+    header .lead {
+        font-size: 1.25rem;
+    }
+
+    /* Stack filter controls on mobile */
+    .col-md-6 {
+        margin-bottom: 0.5rem;
+    }
+
+    /* Make cards more compact on mobile */
+    .card-body {
+        padding: 1rem;
+    }
+
+    .card-header h5 {
+        font-size: 1rem;
+    }
 }
 
 /* Loading Animation */
@@ -193,4 +223,23 @@ html {
 /* Sort Dropdown */
 #sortBy {
     min-width: 150px;
+}
+
+/* Description Toggle Styles */
+.description-text {
+    margin-bottom: 0.5rem;
+}
+
+.toggle-description {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.toggle-description:hover {
+    color: var(--aqua-color);
 }
