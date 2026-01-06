@@ -319,7 +319,9 @@ class WorkshopCatalogue {
                             ${offering.registration_url ? 
                                 `<a href="${offering.registration_url}" class="btn btn-sm btn-primary mt-1" target="_blank">
                                     <i class="bi bi-box-arrow-up-right"></i> Register
-                                </a>` : ''
+                                </a>` : `<a href="#" class="btn btn-sm btn-secondary mt-1 disabled">
+                                    <i class="bi bi-hourglass-split"></i> Opens soon
+                                </a>`
                             }
                         </div>
                     `;

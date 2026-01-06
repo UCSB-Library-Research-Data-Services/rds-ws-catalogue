@@ -127,7 +127,7 @@
       "quarter": "Winter",
       "year": 2026,
       "location": "Zoom",
-      "registration_url": "https://example.org/register",
+      "registration_url": "",
       "capacity": 60
     },
     {
@@ -138,7 +138,7 @@
       "quarter": "Spring",
       "year": 2026,
       "location": "In Person - Library Room 123",
-      "registration_url": "https://example.org/register",
+      "registration_url": "https://ucsb.libwizard.com/f/protocols_winter_25",
       "capacity": 30
     },
     {
@@ -149,7 +149,7 @@
       "quarter": "Winter",
       "year": 2026,
       "location": "Zoom",
-      "registration_url": "https://example.org/register",
+      "registration_url": "https://ucsb.zoom.us/meeting/register/9pPUAmWoRCGrw5PXroITZg",
       "capacity": 40
     },
     {
@@ -160,7 +160,7 @@
       "quarter": "Winter",
       "year": 2026,
       "location": "Zoom",
-      "registration_url": "https://example.org/register",
+      "registration_url": "https://ucsb.zoom.us/meeting/register/KwPEmsMWSVKGIPs4VYC2tA",
       "capacity": 40
     },
     {
@@ -171,7 +171,7 @@
       "quarter": "Winter",
       "year": 2026,
       "location": "Zoom",
-      "registration_url": "https://example.org/register",
+      "registration_url": "https://ucsb.zoom.us/meeting/register/5QFfbcuSSUGWAizwUK1PJQ",
       "capacity": 40
     },
     {
@@ -182,7 +182,7 @@
       "quarter": "Winter",
       "year": 2026,
       "location": "Zoom",
-      "registration_url": "https://example.org/register",
+      "registration_url": "https://ucsb.zoom.us/meeting/register/pFiLdmB3SQy41pOteTihlA",
       "capacity": 40
     },
     {
