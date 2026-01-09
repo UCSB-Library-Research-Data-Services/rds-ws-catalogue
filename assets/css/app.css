@@ -22,6 +22,10 @@ header {
     margin-bottom: 2rem;
 }
 
+header .container .row > div {
+    padding-left: 10%;
+}
+
 header h1 {
     color: white;
 }
@@ -30,6 +34,59 @@ header .lead {
     color: var(--secondary-color);
     font-weight: 500;
     font-size: x-large;
+}
+
+/* RDS Hex Logo - Integrated Design */
+.rds-hex-logo {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 200px;
+    height: auto;
+    z-index: 10;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+    transform: translateY(-50%);
+}
+
+/* Responsive adjustments for logo and padding */
+@media (max-width: 1023px) and (min-width: 801px) {
+    .rds-hex-logo {
+        width: 140px;
+    }
+    
+    header .container .row > div {
+        padding-left: 10%;
+    }
+}
+
+@media (max-width: 800px) and (min-width: 769px) {
+    .rds-hex-logo {
+        width: 120px;
+    }
+    
+    header .container .row > div {
+        padding-left: 15%;
+    }
+}
+
+@media (max-width: 768px) and (min-width: 401px) {
+    .rds-hex-logo {
+        display: none;
+    }
+    
+    header .container .row > div {
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 400px) {
+    .rds-hex-logo {
+        display: none;
+    }
+    
+    header .container .row > div {
+        padding-left: 0;
+    }
 }
 
 /* Workshop Card Styles */
