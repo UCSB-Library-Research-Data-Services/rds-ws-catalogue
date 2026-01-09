@@ -5,6 +5,7 @@ class WorkshopCatalogue {
         this.filteredWorkshops = [];
         this.filters = this.getFiltersFromURL();
         this.sortBy = 'date';
+        this.icalGenerator = null;
         
         this.init();
     }
@@ -12,6 +13,7 @@ class WorkshopCatalogue {
     async init() {
         try {
             await this.loadData();
+            this.icalGenerator = new ICalGenerator(this.data);
             this.setupEventListeners();
             this.populateFilters();
             this.filterAndDisplayWorkshops();
@@ -52,6 +54,11 @@ class WorkshopCatalogue {
         document.getElementById('sortBy').addEventListener('change', (e) => {
             this.sortBy = e.target.value;
             this.filterAndDisplayWorkshops();
+        });
+
+        // Calendar subscription button
+        document.getElementById('subscribeCalendar').addEventListener('click', () => {
+            this.subscribeToCalendar();
         });
 
         document.getElementById('workshopList').addEventListener('click', (e) => {
@@ -316,18 +323,50 @@ class WorkshopCatalogue {
                             <small class="d-block text-muted">
                                 <i class="bi bi-person-check"></i> Capacity: ${offering.capacity}
                             </small>
-                            ${offering.registration_url ? 
-                                `<a href="${offering.registration_url}" class="btn btn-sm btn-primary mt-1" target="_blank">
-                                    <i class="bi bi-box-arrow-up-right"></i> Register
-                                </a>` : `<a href="#" class="btn btn-sm btn-secondary mt-1 disabled">
-                                    <i class="bi bi-hourglass-split"></i> Opens soon
-                                </a>`
-                            }
+                            <div class="mt-2 d-flex gap-1 flex-wrap">
+                                ${offering.registration_url ? 
+                                    `<a href="${offering.registration_url}" class="btn btn-sm btn-primary" target="_blank">
+                                        <i class="bi bi-box-arrow-up-right"></i> Register
+                                    </a>` : `<a href="#" class="btn btn-sm btn-secondary disabled">
+                                        <i class="bi bi-hourglass-split"></i> Opens soon
+                                    </a>`
+                                }
+                                ${this.createAddToCalendarButton(offering)}
+                            </div>
                         </div>
                     `;
                 }).join('')}
             </div>
         `;
+    }
+
+    createAddToCalendarButton(offering) {
+        // Find the workshop for this offering
+        const workshop = this.data.workshops.find(w => w.id === offering.workshop_id);
+        if (!workshop) return '';
+
+        // Build event description
+        const format = this.data.formats.find(f => f.id === workshop.format_id);
+        const instructors = workshop.instructor_ids.map(id => 
+            this.data.instructors.find(i => i.id === id)?.name
+        ).filter(Boolean).join(', ');
+        
+        let description = workshop.description || workshop.summary || '';
+        description += '\n\n---\n';
+        if (format) description += `Format: ${format.label}\n`;
+        if (instructors) description += `Instructor(s): ${instructors}\n`;
+        if (offering.registration_url) description += `\nRegister: ${offering.registration_url}`;
+
+        const event = {
+            title: workshop.title,
+            description: description,
+            location: offering.location || 'TBA',
+            start: new Date(offering.start),
+            end: new Date(offering.end),
+            url: offering.registration_url || ''
+        };
+
+        return AddToCalendar.createDropdownButton(event, 'btn-sm btn-outline-secondary');
     }
 
     updateResultsCount() {
@@ -375,6 +414,180 @@ class WorkshopCatalogue {
             : window.location.pathname;
 
         window.history.pushState({}, '', newURL);
+    }
+
+    /**
+     * Subscribe to calendar with current filters
+     * Opens calendar app with subscription prompt
+     */
+    subscribeToCalendar() {
+        if (this.filteredWorkshops.length === 0) {
+            alert('No workshops match your current filters. Please adjust your filters and try again.');
+            return;
+        }
+
+        // For GitHub Pages deployment, we'll generate a static ICS file
+        // The URL pattern will be: /calendars/filter-{hash}.ics
+        // For now, we'll just download the ICS file
+        // In production with serverless, this would open a webcal:// URL
+        
+        const filterHash = this.getFilterHash();
+        const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
+        const icsUrl = `${baseUrl}calendars/${filterHash}.ics`;
+        
+        // Check if we have a serverless endpoint or static files
+        // For now, we'll show instructions and download
+        this.showSubscriptionModal(icsUrl);
+    }
+
+    /**
+     * Download ICS file for current filtered workshops
+     */
+    downloadICS() {
+        if (this.filteredWorkshops.length === 0) {
+            alert('No workshops match your current filters. Please adjust your filters and try again.');
+            return;
+        }
+
+        const icsContent = this.icalGenerator.generate(this.filteredWorkshops);
+        const filename = this.generateFilename();
+        
+        ICalGenerator.downloadICS(icsContent, filename);
+    }
+
+    /**
+     * Generate a descriptive filename based on current filters
+     * @returns {string} Filename for ICS file
+     */
+    generateFilename() {
+        let parts = ['rds-workshops'];
+        
+        if (this.filters.area) {
+            const area = this.data.areas.find(a => a.id === this.filters.area);
+            if (area) parts.push(area.label.toLowerCase().replace(/\s+/g, '-'));
+        }
+        
+        if (this.filters.format) {
+            const format = this.data.formats.find(f => f.id === this.filters.format);
+            if (format) parts.push(format.label.toLowerCase().replace(/\s+/g, '-'));
+        }
+        
+        if (this.filters.audience) {
+            const audience = this.data.audiences.find(a => a.id === this.filters.audience);
+            if (audience) parts.push(audience.label.toLowerCase().replace(/\s+/g, '-'));
+        }
+        
+        return parts.join('-') + '.ics';
+    }
+
+    /**
+     * Generate a hash for current filter state
+     * @returns {string} Filter hash
+     */
+    getFilterHash() {
+        const filterString = JSON.stringify(this.filters);
+        // Simple hash function
+        let hash = 0;
+        for (let i = 0; i < filterString.length; i++) {
+            const char = filterString.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash;
+        }
+        return Math.abs(hash).toString(36);
+    }
+
+    /**
+     * Show modal with subscription instructions
+     * @param {string} icsUrl - URL to the ICS file
+     */
+    showSubscriptionModal(icsUrl) {
+        const modal = document.createElement('div');
+        modal.className = 'modal fade';
+        modal.innerHTML = `
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="bi bi-bell"></i> Get Calendar Reminders</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Don't miss these workshops!</strong></p>
+                        <p>Download a calendar file with automatic reminders so you don't forget to attend.</p>
+
+                        <p class="mb-2"><strong>How to import to your calendar:</strong></p>
+                        <ul class="small">
+                            <li><strong><i class="bi bi-google"></i> Google Calendar:</strong> Settings → Import & Export → Import</li>
+                            <li><strong><i class="bi bi-apple"></i> Apple Calendar:</strong> Double-click the downloaded file</li>
+                            <li><strong><i class="bi bi-microsoft"></i> Outlook:</strong> File → Open & Export → Import/Export</li>
+                        </ul>
+
+                        <div class="alert alert-info mt-3 mb-0">
+                            <i class="bi bi-funnel"></i> 
+                            <strong>Workshops included:</strong><br>
+                            ${this.getFilterSummary()}
+                            <div class="mt-2 small text-muted">
+                                (${this.filteredWorkshops.length} workshop${this.filteredWorkshops.length !== 1 ? 's' : ''})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="downloadFromModal">
+                            <i class="bi bi-download"></i> Download Calendar File
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        const bootstrapModal = new bootstrap.Modal(modal);
+        bootstrapModal.show();
+        
+        // Handle download from modal
+        modal.querySelector('#downloadFromModal').addEventListener('click', () => {
+            this.downloadICS();
+            bootstrapModal.hide();
+        });
+        
+        // Clean up modal after hiding
+        modal.addEventListener('hidden.bs.modal', () => {
+            modal.remove();
+        });
+    }
+
+    /**
+     * Get a human-readable summary of current filters
+     * @returns {string} Filter summary HTML
+     */
+    getFilterSummary() {
+        const active = [];
+        
+        if (this.filters.search) {
+            active.push(`Search: "${this.filters.search}"`);
+        }
+        if (this.filters.area) {
+            const area = this.data.areas.find(a => a.id === this.filters.area);
+            if (area) active.push(`Area: ${area.label}`);
+        }
+        if (this.filters.audience) {
+            const audience = this.data.audiences.find(a => a.id === this.filters.audience);
+            if (audience) active.push(`Audience: ${audience.label}`);
+        }
+        if (this.filters.format) {
+            const format = this.data.formats.find(f => f.id === this.filters.format);
+            if (format) active.push(`Format: ${format.label}`);
+        }
+        if (this.filters.department) {
+            const dept = this.data.departments.find(d => d.id === this.filters.department);
+            if (dept) active.push(`Department: ${dept.label}`);
+        }
+        if (this.filters.instructor) {
+            const instructor = this.data.instructors.find(i => i.id === this.filters.instructor);
+            if (instructor) active.push(`Instructor: ${instructor.name}`);
+        }
+        
+        return active.length > 0 ? active.join('<br>') : 'No filters applied (all workshops)';
     }
 
 }

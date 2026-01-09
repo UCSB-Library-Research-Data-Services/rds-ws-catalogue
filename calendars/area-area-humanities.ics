@@ -1,0 +1,74 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UCSB Library//RDS Workshops//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:RDS Workshops
+X-WR-TIMEZONE:America/Los_Angeles
+X-WR-CALDESC:Research Data Services Workshop Catalogue
+BEGIN:VEVENT
+UID:off-2026-02-11-1000@rds-workshops.ucsb.edu
+DTSTAMP:20260109T095827
+DTSTART:20260211T100000
+DTEND:20260211T113000
+SUMMARY:Collecting Cultural Heritage Data with the DPLA API
+DESCRIPTION:Are you wondering if there’s a better way to collect information from digital archives\, libraries\, and museum collections than downloading items one by one? In this workshop\, we will explore how to take advantage of API services provided by cultural institutions using Python to collect and structure data and digital artifacts. Using open cultural heritage data from the Digital Public Library of America (DPLA)\, participants will retrieve a sample of digital objects and relevant metadata\, simulating a real research scenario. The session introduces key concepts such as pagination\, filtering\, and basic data inspection\, with a focus on realistic data collection workflows.\n\n---\nFormat: Online\nInstructor(s): Jairo Melo\nResearch Area(s): Data management\, Humanities\nQuarter: Winter 2026\n
+LOCATION:Zoom
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Collecting Cultural Heritage Data with the DPLA API tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Collecting Cultural Heritage Data with the DPLA API in 1 hour
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:off-2026-01-29-1200@rds-workshops.ucsb.edu
+DTSTAMP:20260109T095827
+DTSTART:20260129T120000
+DTEND:20260129T130000
+SUMMARY:Document Your Research Thinking w/ Obsidian
+DESCRIPTION:Research isn’t just about collecting sources or writing papers\, there’s a crucial middle stage where ideas take shape: reading\, reflecting\, drafting\, and making connections.\nThis workshop explores how to treat research notes as valuable data — information that deserves to be organized\, preserved\, and revisited. We’ll use Obsidian\, a free\, flexible\, and local-first note-taking app\, to show how you can build a system for documenting your research thinking in plain-text files that you fully control.\nYou’ll learn how to link ideas\, structure your notes\, and even sync your notes to GitHub for safe\, long-term storage\, all without needing any coding experience. This workshop is open to everyone\, but will be of particular interest to graduate students\, faculty\, and staff.\nThis event may be photographed or recorded.\n\n---\nFormat: In person\nInstructor(s): Jairo Melo\nResearch Area(s): Data management\, Humanities\nQuarter: Winter 2026\n\nRegister: https://ucsb.zoom.us/meeting/register/9pPUAmWoRCGrw5PXroITZg
+LOCATION:Zoom
+URL:https://ucsb.zoom.us/meeting/register/9pPUAmWoRCGrw5PXroITZg
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Document Your Research Thinking w/ Obsidian tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Document Your Research Thinking w/ Obsidian in 1 hour
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:off-2026-02-10-1200@rds-workshops.ucsb.edu
+DTSTAMP:20260109T095827
+DTSTART:20260210T120000
+DTEND:20260210T130000
+SUMMARY:Beyond Spreadsheets: A Practical Guide to No-Code Databases
+DESCRIPTION:Do you enjoy the flexibility of Airtable but find the cost limits frustrating? Do spreadsheets work for you until you need to link multiple tables or track relationships? Are you interested in organizing your research data in a proper database\, but SQL still feels like too big a leap?\nNo-code databases provide a middle ground. They allow you to create structured\, relational data models and benefit from the efficiency of a database engine without needing to write queries or manage complex infrastructure.\nIn this workshop\, we’ll introduce the core ideas behind no-code databases\, explore several open-source options\, and guide you through installing and setting up your first local database. You’ll leave with a clearer understanding of how these tools can support research\, collaboration\, and sustainable data management.\nThis event may be photographed or recorded.\n\n---\nFormat: Online\nInstructor(s): Jairo Melo\nResearch Area(s): Data management\, Humanities\nQuarter: Winter 2026\n\nRegister: https://ucsb.zoom.us/meeting/register/KwPEmsMWSVKGIPs4VYC2tA
+LOCATION:Zoom
+URL:https://ucsb.zoom.us/meeting/register/KwPEmsMWSVKGIPs4VYC2tA
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Beyond Spreadsheets: A Practical Guide to No-Code Databases tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Beyond Spreadsheets: A Practical Guide to No-Code Databases in 1 hour
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,38 @@
+name: Generate Calendar Files
+
+on:
+  push:
+    paths:
+      - 'assets/data/workshops.json'
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  generate-calendars:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Create calendars directory
+        run: mkdir -p calendars
+      
+      - name: Generate ICS files
+        run: node scripts/generate-ics.js
+      
+      - name: Commit and push calendar files
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add calendars/*.ics
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update calendar files [skip ci]"
+          git push

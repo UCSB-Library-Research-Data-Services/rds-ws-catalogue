@@ -1,0 +1,75 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UCSB Library//RDS Workshops//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:RDS Workshops
+X-WR-TIMEZONE:America/Los_Angeles
+X-WR-CALDESC:Research Data Services Workshop Catalogue
+BEGIN:VEVENT
+UID:off-2026-01-23-1200@rds-workshops.ucsb.edu
+DTSTAMP:20260109T095827
+DTSTART:20260123T120000
+DTEND:20260123T133000
+SUMMARY:Reproducible Methods with Protocols.io
+DESCRIPTION:Protocols.io is an open collaborative platform for creating and sharing dynamic research protocols. In this hands-on workshop\, we will learn why protocol sharing matters and guide you through building a step-by-step protocol. We will introduce core features\, highlight advanced tools\, and discuss how Protocols.io fits alongside other methods sharing options. By the end of the session\, you will understand how to adapt protocols.io for your research workflow and use it to support reproducible\, well-documented research.\nResearchers from all disciplines are welcome\, including those documenting lab procedures\, computational workflows\, or qualitative methods such as interview guides. While everyone is welcome\, this workshop will be of particular interest to graduate students\, postdocs\, and faculty.\nThis event may be photographed or recorded.\n\n---\nFormat: Online\nInstructor(s): Xiuqi 'Jade' Li\nResearch Area(s): Data management\, Sciences & Engineering\nQuarter: Spring 2026\n\nRegister: https://ucsb.libwizard.com/f/protocols_winter_25
+LOCATION:In Person - Library Room 123
+URL:https://ucsb.libwizard.com/f/protocols_winter_25
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Reproducible Methods with Protocols.io tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Reproducible Methods with Protocols.io in 1 hour
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:off-2026-01-27-1000@rds-workshops.ucsb.edu
+DTSTAMP:20260109T095827
+DTSTART:20260127T100000
+DTEND:20260127T120000
+SUMMARY:Web Scraping with Python
+DESCRIPTION:Turn websites into usable data. In this intermediate workshop\, you will master web scraping using Python's Requests\, Beautiful Soup\, and Selenium. Learn to read and navigate the backbone of a website (its HTML content) and automate data extraction from both static and dynamic web pages.\nDesigned for participants with basic knowledge of Python programming.\n\n---\nFormat: In person\nInstructor(s): Julien Brun\, Jairo Melo\, Jose Niño Muriel\nResearch Area(s): Data management\, Sciences & Engineering\nQuarter: Winter 2026\n\nRegister: https://shoreline.ucsb.edu/library/rsvp_boot?id=2270303
+LOCATION:Library
+URL:https://shoreline.ucsb.edu/library/rsvp_boot?id=2270303
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Web Scraping with Python tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Web Scraping with Python in 1 hour
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:off-2026-01-29-1000@rds-workshops.ucsb.edu
+DTSTAMP:20260109T095827
+DTSTART:20260129T100000
+DTEND:20260129T120000
+SUMMARY:Web Scraping with Python
+DESCRIPTION:Turn websites into usable data. In this intermediate workshop\, you will master web scraping using Python's Requests\, Beautiful Soup\, and Selenium. Learn to read and navigate the backbone of a website (its HTML content) and automate data extraction from both static and dynamic web pages.\nDesigned for participants with basic knowledge of Python programming.\n\n---\nFormat: In person\nInstructor(s): Julien Brun\, Jairo Melo\, Jose Niño Muriel\nResearch Area(s): Data management\, Sciences & Engineering\nQuarter: Winter 2026\n\nRegister: https://shoreline.ucsb.edu/library/rsvp_boot?id=2270303
+LOCATION:Library
+URL:https://shoreline.ucsb.edu/library/rsvp_boot?id=2270303
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Web Scraping with Python tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Web Scraping with Python in 1 hour
+END:VALARM
+END:VEVENT
+END:VCALENDAR

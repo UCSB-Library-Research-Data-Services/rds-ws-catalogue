@@ -1,0 +1,118 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UCSB Library//RDS Workshops//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:RDS Workshops
+X-WR-TIMEZONE:America/Los_Angeles
+X-WR-CALDESC:Research Data Services Workshop Catalogue
+BEGIN:VEVENT
+UID:off-2026-02-11-1000@rds-workshops.ucsb.edu
+DTSTAMP:20260109T095827
+DTSTART:20260211T100000
+DTEND:20260211T113000
+SUMMARY:Collecting Cultural Heritage Data with the DPLA API
+DESCRIPTION:Are you wondering if there’s a better way to collect information from digital archives\, libraries\, and museum collections than downloading items one by one? In this workshop\, we will explore how to take advantage of API services provided by cultural institutions using Python to collect and structure data and digital artifacts. Using open cultural heritage data from the Digital Public Library of America (DPLA)\, participants will retrieve a sample of digital objects and relevant metadata\, simulating a real research scenario. The session introduces key concepts such as pagination\, filtering\, and basic data inspection\, with a focus on realistic data collection workflows.\n\n---\nFormat: Online\nInstructor(s): Jairo Melo\nResearch Area(s): Data management\, Humanities\nQuarter: Winter 2026\n
+LOCATION:Zoom
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Collecting Cultural Heritage Data with the DPLA API tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Collecting Cultural Heritage Data with the DPLA API in 1 hour
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:off-2026-01-23-1200@rds-workshops.ucsb.edu
+DTSTAMP:20260109T095827
+DTSTART:20260123T120000
+DTEND:20260123T133000
+SUMMARY:Reproducible Methods with Protocols.io
+DESCRIPTION:Protocols.io is an open collaborative platform for creating and sharing dynamic research protocols. In this hands-on workshop\, we will learn why protocol sharing matters and guide you through building a step-by-step protocol. We will introduce core features\, highlight advanced tools\, and discuss how Protocols.io fits alongside other methods sharing options. By the end of the session\, you will understand how to adapt protocols.io for your research workflow and use it to support reproducible\, well-documented research.\nResearchers from all disciplines are welcome\, including those documenting lab procedures\, computational workflows\, or qualitative methods such as interview guides. While everyone is welcome\, this workshop will be of particular interest to graduate students\, postdocs\, and faculty.\nThis event may be photographed or recorded.\n\n---\nFormat: Online\nInstructor(s): Xiuqi 'Jade' Li\nResearch Area(s): Data management\, Sciences & Engineering\nQuarter: Spring 2026\n\nRegister: https://ucsb.libwizard.com/f/protocols_winter_25
+LOCATION:In Person - Library Room 123
+URL:https://ucsb.libwizard.com/f/protocols_winter_25
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Reproducible Methods with Protocols.io tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Reproducible Methods with Protocols.io in 1 hour
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:off-2026-02-10-1200@rds-workshops.ucsb.edu
+DTSTAMP:20260109T095827
+DTSTART:20260210T120000
+DTEND:20260210T130000
+SUMMARY:Beyond Spreadsheets: A Practical Guide to No-Code Databases
+DESCRIPTION:Do you enjoy the flexibility of Airtable but find the cost limits frustrating? Do spreadsheets work for you until you need to link multiple tables or track relationships? Are you interested in organizing your research data in a proper database\, but SQL still feels like too big a leap?\nNo-code databases provide a middle ground. They allow you to create structured\, relational data models and benefit from the efficiency of a database engine without needing to write queries or manage complex infrastructure.\nIn this workshop\, we’ll introduce the core ideas behind no-code databases\, explore several open-source options\, and guide you through installing and setting up your first local database. You’ll leave with a clearer understanding of how these tools can support research\, collaboration\, and sustainable data management.\nThis event may be photographed or recorded.\n\n---\nFormat: Online\nInstructor(s): Jairo Melo\nResearch Area(s): Data management\, Humanities\nQuarter: Winter 2026\n\nRegister: https://ucsb.zoom.us/meeting/register/KwPEmsMWSVKGIPs4VYC2tA
+LOCATION:Zoom
+URL:https://ucsb.zoom.us/meeting/register/KwPEmsMWSVKGIPs4VYC2tA
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Beyond Spreadsheets: A Practical Guide to No-Code Databases tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Beyond Spreadsheets: A Practical Guide to No-Code Databases in 1 hour
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:off-2026-02-24-1200@rds-workshops.ucsb.edu
+DTSTAMP:20260109T095827
+DTSTART:20260224T120000
+DTEND:20260224T130000
+SUMMARY:From Résumé to Dynamic Portfolio
+DESCRIPTION:The job market is shifting\, and a traditional résumé is only one part of an effective professional presence. A digital portfolio allows you to highlight your skills\, experience\, and projects in a more dynamic and engaging way.\nIn this 1-hour workshop\, you’ll learn how to build a simple\, static portfolio website using GitHub Pages\, no coding required. We’ll start with an easy-to-customize template and show you how to integrate key elements from your résumé or CV\, plus links to platforms like LinkedIn\, ORCID\, and other professional profiles.\nThis event may be photographed or recorded.\n\n---\nFormat: Online\nInstructor(s): Jairo Melo\, Anne Cong-Huyen\nResearch Area(s): Data management\nQuarter: Winter 2026\n\nRegister: https://ucsb.zoom.us/meeting/register/5QFfbcuSSUGWAizwUK1PJQ
+LOCATION:Zoom
+URL:https://ucsb.zoom.us/meeting/register/5QFfbcuSSUGWAizwUK1PJQ
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: From Résumé to Dynamic Portfolio tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: From Résumé to Dynamic Portfolio in 1 hour
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:off-2026-03-04-1200@rds-workshops.ucsb.edu
+DTSTAMP:20260109T095827
+DTSTART:20260304T120000
+DTEND:20260304T130000
+SUMMARY:Beyond Traditional Publishing: Research Outputs You Can Share and Get Credit For
+DESCRIPTION:Researchers create far more than journal articles. Datasets\, code\, experimental protocols\, and event reagents are all valuable research outputs that can be shared\, cited\, and recognized. This session will introduce practical ways to make these outputs discoverable\, citable\, and impactful—expanding your scholarly footprint and supporting more transparent\, reusable research. Whether you are new to open research practices or looking to strengthen your portfolio\, this workshop offers concrete strategies you can apply immediately to your research workflows.\nResearchers from all disciplines are welcome. This workshop will be of particular interest to graduate students\, postdocs\, and faculty.\nThis event may be photographed or recorded.\n\n---\nFormat: Online\nInstructor(s): Xiuqi 'Jade' Li\, Renata Curty\nResearch Area(s): Data management\nQuarter: Winter 2026\n\nRegister: https://ucsb.zoom.us/meeting/register/pFiLdmB3SQy41pOteTihlA
+LOCATION:Zoom
+URL:https://ucsb.zoom.us/meeting/register/pFiLdmB3SQy41pOteTihlA
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Beyond Traditional Publishing: Research Outputs You Can Share and Get Credit For tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Beyond Traditional Publishing: Research Outputs You Can Share and Get Credit For in 1 hour
+END:VALARM
+END:VEVENT
+END:VCALENDAR

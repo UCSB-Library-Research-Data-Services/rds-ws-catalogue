@@ -1,0 +1,31 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UCSB Library//RDS Workshops//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:RDS Workshops
+X-WR-TIMEZONE:America/Los_Angeles
+X-WR-CALDESC:Research Data Services Workshop Catalogue
+BEGIN:VEVENT
+UID:off-2026-02-24-1200@rds-workshops.ucsb.edu
+DTSTAMP:20260109T095827
+DTSTART:20260224T120000
+DTEND:20260224T130000
+SUMMARY:From Résumé to Dynamic Portfolio
+DESCRIPTION:The job market is shifting\, and a traditional résumé is only one part of an effective professional presence. A digital portfolio allows you to highlight your skills\, experience\, and projects in a more dynamic and engaging way.\nIn this 1-hour workshop\, you’ll learn how to build a simple\, static portfolio website using GitHub Pages\, no coding required. We’ll start with an easy-to-customize template and show you how to integrate key elements from your résumé or CV\, plus links to platforms like LinkedIn\, ORCID\, and other professional profiles.\nThis event may be photographed or recorded.\n\n---\nFormat: Online\nInstructor(s): Jairo Melo\, Anne Cong-Huyen\nResearch Area(s): Data management\nQuarter: Winter 2026\n\nRegister: https://ucsb.zoom.us/meeting/register/5QFfbcuSSUGWAizwUK1PJQ
+LOCATION:Zoom
+URL:https://ucsb.zoom.us/meeting/register/5QFfbcuSSUGWAizwUK1PJQ
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: From Résumé to Dynamic Portfolio tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: From Résumé to Dynamic Portfolio in 1 hour
+END:VALARM
+END:VEVENT
+END:VCALENDAR
