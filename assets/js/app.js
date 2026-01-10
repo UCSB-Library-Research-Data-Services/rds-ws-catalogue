@@ -148,6 +148,9 @@ class WorkshopCatalogue {
     filterAndDisplayWorkshops() {
         // Update URL with current filters
         this.updateURL();
+        
+        // Update active filters display
+        this.updateActiveFiltersDisplay();
 
         // Filter active workshops
         this.filteredWorkshops = this.data.workshops.filter(workshop => {
@@ -417,6 +420,87 @@ class WorkshopCatalogue {
     }
 
     /**
+     * Update active filters display with dismissible pills
+     */
+    updateActiveFiltersDisplay() {
+        const container = document.getElementById('activeFilters');
+        const pills = [];
+
+        // Search filter
+        if (this.filters.search) {
+            pills.push(this.createFilterPill('search', `Search: "${this.filters.search}"`));
+        }
+
+        // Area filter
+        if (this.filters.area) {
+            const area = this.data.areas.find(a => a.id === this.filters.area);
+            if (area) pills.push(this.createFilterPill('area', `Area: ${area.label}`));
+        }
+
+        // Audience filter
+        if (this.filters.audience) {
+            const audience = this.data.audiences.find(a => a.id === this.filters.audience);
+            if (audience) pills.push(this.createFilterPill('audience', `Audience: ${audience.label}`));
+        }
+
+        // Format filter
+        if (this.filters.format) {
+            const format = this.data.formats.find(f => f.id === this.filters.format);
+            if (format) pills.push(this.createFilterPill('format', `Format: ${format.label}`));
+        }
+
+        // Department filter
+        if (this.filters.department) {
+            const dept = this.data.departments.find(d => d.id === this.filters.department);
+            if (dept) pills.push(this.createFilterPill('department', `Department: ${dept.label}`));
+        }
+
+        // Instructor filter
+        if (this.filters.instructor) {
+            const instructor = this.data.instructors.find(i => i.id === this.filters.instructor);
+            if (instructor) pills.push(this.createFilterPill('instructor', `Instructor: ${instructor.name}`));
+        }
+
+        container.innerHTML = pills.length > 0 
+            ? `<small class="text-muted me-2">Active filters:</small>` + pills.join('')
+            : '';
+    }
+
+    /**
+     * Create a dismissible filter pill
+     * @param {string} filterKey - The filter key (search, area, etc.)
+     * @param {string} label - Display label
+     * @returns {string} HTML for the pill
+     */
+    createFilterPill(filterKey, label) {
+        return `
+            <span class="badge bg-primary me-1 mb-1 filter-pill" data-filter="${filterKey}">
+                ${label}
+                <i class="bi bi-x-circle ms-1" style="cursor: pointer;" onclick="app.removeFilter('${filterKey}')"></i>
+            </span>
+        `;
+    }
+
+    /**
+     * Remove a specific filter
+     * @param {string} filterKey - The filter key to remove
+     */
+    removeFilter(filterKey) {
+        this.filters[filterKey] = '';
+        
+        // Update the corresponding input/select element
+        if (filterKey === 'search') {
+            document.getElementById('searchInput').value = '';
+        } else {
+            const elementId = filterKey + 'Filter';
+            const element = document.getElementById(elementId);
+            if (element) element.value = '';
+        }
+        
+        this.filterAndDisplayWorkshops();
+    }
+
+    /**
      * Subscribe to calendar with current filters
      * Opens calendar app with subscription prompt
      */
@@ -593,6 +677,7 @@ class WorkshopCatalogue {
 }
 
 // Initialize the app when DOM is ready
+let app;
 document.addEventListener('DOMContentLoaded', () => {
-    new WorkshopCatalogue();
+    app = new WorkshopCatalogue();
 });
