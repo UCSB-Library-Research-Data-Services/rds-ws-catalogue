@@ -8,9 +8,9 @@ X-WR-TIMEZONE:America/Los_Angeles
 X-WR-CALDESC:Research Data Services Workshop Catalogue
 BEGIN:VEVENT
 UID:off-2026-01-29-1200@rds-workshops.ucsb.edu
-DTSTAMP:20260109T095827
-DTSTART:20260129T120000
-DTEND:20260129T130000
+DTSTAMP:20260110T004332
+DTSTART:20260129T200000
+DTEND:20260129T210000
 SUMMARY:Document Your Research Thinking w/ Obsidian
 DESCRIPTION:Research isn’t just about collecting sources or writing papers\, there’s a crucial middle stage where ideas take shape: reading\, reflecting\, drafting\, and making connections.\nThis workshop explores how to treat research notes as valuable data — information that deserves to be organized\, preserved\, and revisited. We’ll use Obsidian\, a free\, flexible\, and local-first note-taking app\, to show how you can build a system for documenting your research thinking in plain-text files that you fully control.\nYou’ll learn how to link ideas\, structure your notes\, and even sync your notes to GitHub for safe\, long-term storage\, all without needing any coding experience. This workshop is open to everyone\, but will be of particular interest to graduate students\, faculty\, and staff.\nThis event may be photographed or recorded.\n\n---\nFormat: In person\nInstructor(s): Jairo Melo\nResearch Area(s): Data management\, Humanities\nQuarter: Winter 2026\n\nRegister: https://ucsb.zoom.us/meeting/register/9pPUAmWoRCGrw5PXroITZg
 LOCATION:Zoom
@@ -30,9 +30,9 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:off-2026-01-27-1000@rds-workshops.ucsb.edu
-DTSTAMP:20260109T095827
-DTSTART:20260127T100000
-DTEND:20260127T120000
+DTSTAMP:20260110T004332
+DTSTART:20260127T180000
+DTEND:20260127T200000
 SUMMARY:Web Scraping with Python
 DESCRIPTION:Turn websites into usable data. In this intermediate workshop\, you will master web scraping using Python's Requests\, Beautiful Soup\, and Selenium. Learn to read and navigate the backbone of a website (its HTML content) and automate data extraction from both static and dynamic web pages.\nDesigned for participants with basic knowledge of Python programming.\n\n---\nFormat: In person\nInstructor(s): Julien Brun\, Jairo Melo\, Jose Niño Muriel\nResearch Area(s): Data management\, Sciences & Engineering\nQuarter: Winter 2026\n\nRegister: https://shoreline.ucsb.edu/library/rsvp_boot?id=2270303
 LOCATION:Library
@@ -52,9 +52,9 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:off-2026-01-29-1000@rds-workshops.ucsb.edu
-DTSTAMP:20260109T095827
-DTSTART:20260129T100000
-DTEND:20260129T120000
+DTSTAMP:20260110T004332
+DTSTART:20260129T180000
+DTEND:20260129T200000
 SUMMARY:Web Scraping with Python
 DESCRIPTION:Turn websites into usable data. In this intermediate workshop\, you will master web scraping using Python's Requests\, Beautiful Soup\, and Selenium. Learn to read and navigate the backbone of a website (its HTML content) and automate data extraction from both static and dynamic web pages.\nDesigned for participants with basic knowledge of Python programming.\n\n---\nFormat: In person\nInstructor(s): Julien Brun\, Jairo Melo\, Jose Niño Muriel\nResearch Area(s): Data management\, Sciences & Engineering\nQuarter: Winter 2026\n\nRegister: https://shoreline.ucsb.edu/library/rsvp_boot?id=2270303
 LOCATION:Library

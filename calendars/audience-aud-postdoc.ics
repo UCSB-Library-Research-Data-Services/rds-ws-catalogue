@@ -8,9 +8,9 @@ X-WR-TIMEZONE:America/Los_Angeles
 X-WR-CALDESC:Research Data Services Workshop Catalogue
 BEGIN:VEVENT
 UID:off-2026-03-04-1200@rds-workshops.ucsb.edu
-DTSTAMP:20260109T095827
-DTSTART:20260304T120000
-DTEND:20260304T130000
+DTSTAMP:20260110T004332
+DTSTART:20260304T200000
+DTEND:20260304T210000
 SUMMARY:Beyond Traditional Publishing: Research Outputs You Can Share and Get Credit For
 DESCRIPTION:Researchers create far more than journal articles. Datasets\, code\, experimental protocols\, and event reagents are all valuable research outputs that can be shared\, cited\, and recognized. This session will introduce practical ways to make these outputs discoverable\, citable\, and impactful—expanding your scholarly footprint and supporting more transparent\, reusable research. Whether you are new to open research practices or looking to strengthen your portfolio\, this workshop offers concrete strategies you can apply immediately to your research workflows.\nResearchers from all disciplines are welcome. This workshop will be of particular interest to graduate students\, postdocs\, and faculty.\nThis event may be photographed or recorded.\n\n---\nFormat: Online\nInstructor(s): Xiuqi 'Jade' Li\, Renata Curty\nResearch Area(s): Data management\nQuarter: Winter 2026\n\nRegister: https://ucsb.zoom.us/meeting/register/pFiLdmB3SQy41pOteTihlA
 LOCATION:Zoom

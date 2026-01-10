@@ -8,9 +8,9 @@ X-WR-TIMEZONE:America/Los_Angeles
 X-WR-CALDESC:Research Data Services Workshop Catalogue
 BEGIN:VEVENT
 UID:off-2026-01-27-1000@rds-workshops.ucsb.edu
-DTSTAMP:20260109T095827
-DTSTART:20260127T100000
-DTEND:20260127T120000
+DTSTAMP:20260110T004332
+DTSTART:20260127T180000
+DTEND:20260127T200000
 SUMMARY:Web Scraping with Python
 DESCRIPTION:Turn websites into usable data. In this intermediate workshop\, you will master web scraping using Python's Requests\, Beautiful Soup\, and Selenium. Learn to read and navigate the backbone of a website (its HTML content) and automate data extraction from both static and dynamic web pages.\nDesigned for participants with basic knowledge of Python programming.\n\n---\nFormat: In person\nInstructor(s): Julien Brun\, Jairo Melo\, Jose Niño Muriel\nResearch Area(s): Data management\, Sciences & Engineering\nQuarter: Winter 2026\n\nRegister: https://shoreline.ucsb.edu/library/rsvp_boot?id=2270303
 LOCATION:Library
@@ -30,9 +30,9 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:off-2026-01-29-1000@rds-workshops.ucsb.edu
-DTSTAMP:20260109T095827
-DTSTART:20260129T100000
-DTEND:20260129T120000
+DTSTAMP:20260110T004332
+DTSTART:20260129T180000
+DTEND:20260129T200000
 SUMMARY:Web Scraping with Python
 DESCRIPTION:Turn websites into usable data. In this intermediate workshop\, you will master web scraping using Python's Requests\, Beautiful Soup\, and Selenium. Learn to read and navigate the backbone of a website (its HTML content) and automate data extraction from both static and dynamic web pages.\nDesigned for participants with basic knowledge of Python programming.\n\n---\nFormat: In person\nInstructor(s): Julien Brun\, Jairo Melo\, Jose Niño Muriel\nResearch Area(s): Data management\, Sciences & Engineering\nQuarter: Winter 2026\n\nRegister: https://shoreline.ucsb.edu/library/rsvp_boot?id=2270303
 LOCATION:Library
