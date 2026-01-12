@@ -11,7 +11,7 @@
       "audience_ids": ["aud-grad", "aud-faculty", "aud-staff"],
       "instructor_ids": ["inst-jairo"],
       "department_ids": ["dept-rds"],
-      "offering_ids": ["off-2026-02-10-1000"],
+      "offering_ids": ["off-2026-02-10-1400"],
       "tags": ["apis", "postman", "data collection"],
       "is_active": true
     },
