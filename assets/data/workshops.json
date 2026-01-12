@@ -36,7 +36,7 @@
       "summary": "Learn to use Obsidian for documenting research thinking and note-taking.",
       "description": "Research isn’t just about collecting sources or writing papers, there’s a crucial middle stage where ideas take shape: reading, reflecting, drafting, and making connections.\nThis workshop explores how to treat research notes as valuable data — information that deserves to be organized, preserved, and revisited. We’ll use Obsidian, a free, flexible, and local-first note-taking app, to show how you can build a system for documenting your research thinking in plain-text files that you fully control.\nYou’ll learn how to link ideas, structure your notes, and even sync your notes to GitHub for safe, long-term storage, all without needing any coding experience. This workshop is open to everyone, but will be of particular interest to graduate students, faculty, and staff.\nThis event may be photographed or recorded.",
       "series_id": "",
-      "format_id": "fmt-in-person",
+      "format_id": "fmt-online",
       "area_ids": ["area-data-mgmt", "area-humanities"],
       "audience_ids": ["aud-all", "aud-grad", "aud-faculty", "aud-staff"],
       "instructor_ids": ["inst-jairo"],
