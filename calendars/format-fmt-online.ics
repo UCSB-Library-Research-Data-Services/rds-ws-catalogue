@@ -8,7 +8,7 @@ X-WR-TIMEZONE:America/Los_Angeles
 X-WR-CALDESC:Research Data Services Workshop Catalogue
 BEGIN:VEVENT
 UID:off-2026-02-11-1000@rds-workshops.ucsb.edu
-DTSTAMP:20260110T004332
+DTSTAMP:20260112T231340
 DTSTART:20260211T180000
 DTEND:20260211T193000
 SUMMARY:Collecting Cultural Heritage Data with the DPLA API
@@ -29,30 +29,8 @@ DESCRIPTION:Reminder: Collecting Cultural Heritage Data with the DPLA API in 1 h
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:off-2026-01-23-1200@rds-workshops.ucsb.edu
-DTSTAMP:20260110T004332
-DTSTART:20260123T200000
-DTEND:20260123T213000
-SUMMARY:Reproducible Methods with Protocols.io
-DESCRIPTION:Protocols.io is an open collaborative platform for creating and sharing dynamic research protocols. In this hands-on workshop\, we will learn why protocol sharing matters and guide you through building a step-by-step protocol. We will introduce core features\, highlight advanced tools\, and discuss how Protocols.io fits alongside other methods sharing options. By the end of the session\, you will understand how to adapt protocols.io for your research workflow and use it to support reproducible\, well-documented research.\nResearchers from all disciplines are welcome\, including those documenting lab procedures\, computational workflows\, or qualitative methods such as interview guides. While everyone is welcome\, this workshop will be of particular interest to graduate students\, postdocs\, and faculty.\nThis event may be photographed or recorded.\n\n---\nFormat: Online\nInstructor(s): Xiuqi 'Jade' Li\nResearch Area(s): Data management\, Sciences & Engineering\nQuarter: Spring 2026\n\nRegister: https://ucsb.libwizard.com/f/protocols_winter_25
-LOCATION:In Person - Library Room 123
-URL:https://ucsb.libwizard.com/f/protocols_winter_25
-STATUS:CONFIRMED
-SEQUENCE:0
-BEGIN:VALARM
-TRIGGER:-PT24H
-ACTION:DISPLAY
-DESCRIPTION:Reminder: Reproducible Methods with Protocols.io tomorrow
-END:VALARM
-BEGIN:VALARM
-TRIGGER:-PT1H
-ACTION:DISPLAY
-DESCRIPTION:Reminder: Reproducible Methods with Protocols.io in 1 hour
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
 UID:off-2026-02-10-1200@rds-workshops.ucsb.edu
-DTSTAMP:20260110T004332
+DTSTAMP:20260112T231340
 DTSTART:20260210T200000
 DTEND:20260210T210000
 SUMMARY:Beyond Spreadsheets: A Practical Guide to No-Code Databases
@@ -74,7 +52,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:off-2026-02-24-1200@rds-workshops.ucsb.edu
-DTSTAMP:20260110T004332
+DTSTAMP:20260112T231340
 DTSTART:20260224T200000
 DTEND:20260224T210000
 SUMMARY:From Résumé to Dynamic Portfolio
@@ -96,7 +74,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:off-2026-03-04-1200@rds-workshops.ucsb.edu
-DTSTAMP:20260110T004332
+DTSTAMP:20260112T231340
 DTSTART:20260304T200000
 DTEND:20260304T210000
 SUMMARY:Beyond Traditional Publishing: Research Outputs You Can Share and Get Credit For
