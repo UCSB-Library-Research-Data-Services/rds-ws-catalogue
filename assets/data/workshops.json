@@ -11,7 +11,7 @@
       "audience_ids": ["aud-grad", "aud-faculty", "aud-staff"],
       "instructor_ids": ["inst-jairo"],
       "department_ids": ["dept-rds"],
-      "offering_ids": ["off-2026-02-11-1000"],
+      "offering_ids": ["off-2026-02-10-1000"],
       "tags": ["apis", "postman", "data collection"],
       "is_active": true
     },
@@ -21,7 +21,7 @@
       "summary": "Protocols.io for documenting and sharing research methods.",
       "description": "Protocols.io is an open collaborative platform for creating and sharing dynamic research protocols. In this hands-on workshop, we will learn why protocol sharing matters and guide you through building a step-by-step protocol. We will introduce core features, highlight advanced tools, and discuss how Protocols.io fits alongside other methods sharing options. By the end of the session, you will understand how to adapt protocols.io for your research workflow and use it to support reproducible, well-documented research.\nResearchers from all disciplines are welcome, including those documenting lab procedures, computational workflows, or qualitative methods such as interview guides. While everyone is welcome, this workshop will be of particular interest to graduate students, postdocs, and faculty.\nThis event may be photographed or recorded.",
       "series_id": "",
-      "format_id": "fmt-online",
+      "format_id": "fmt-in-person",
       "area_ids": ["area-data-mgmt", "area-sciences"],
       "audience_ids": ["aud-grad", "aud-faculty"],
       "instructor_ids": ["inst-jade"],
