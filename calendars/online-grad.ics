@@ -8,7 +8,7 @@ X-WR-TIMEZONE:America/Los_Angeles
 X-WR-CALDESC:Research Data Services Workshop Catalogue
 BEGIN:VEVENT
 UID:off-2026-02-11-1000@rds-workshops.ucsb.edu
-DTSTAMP:20260112T234759
+DTSTAMP:20260112T234959
 DTSTART:20260211T180000
 DTEND:20260211T193000
 SUMMARY:Collecting Cultural Heritage Data with the DPLA API
@@ -29,8 +29,30 @@ DESCRIPTION:Reminder: Collecting Cultural Heritage Data with the DPLA API in 1 h
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:off-2026-01-29-1200@rds-workshops.ucsb.edu
+DTSTAMP:20260112T234959
+DTSTART:20260129T200000
+DTEND:20260129T210000
+SUMMARY:Document Your Research Thinking w/ Obsidian
+DESCRIPTION:Research isn’t just about collecting sources or writing papers\, there’s a crucial middle stage where ideas take shape: reading\, reflecting\, drafting\, and making connections.\nThis workshop explores how to treat research notes as valuable data — information that deserves to be organized\, preserved\, and revisited. We’ll use Obsidian\, a free\, flexible\, and local-first note-taking app\, to show how you can build a system for documenting your research thinking in plain-text files that you fully control.\nYou’ll learn how to link ideas\, structure your notes\, and even sync your notes to GitHub for safe\, long-term storage\, all without needing any coding experience. This workshop is open to everyone\, but will be of particular interest to graduate students\, faculty\, and staff.\nThis event may be photographed or recorded.\n\n---\nFormat: Online\nInstructor(s): Jairo Melo\nResearch Area(s): Data management\, Humanities\nQuarter: Winter 2026\n\nRegister: https://ucsb.zoom.us/meeting/register/9pPUAmWoRCGrw5PXroITZg
+LOCATION:Zoom
+URL:https://ucsb.zoom.us/meeting/register/9pPUAmWoRCGrw5PXroITZg
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Document Your Research Thinking w/ Obsidian tomorrow
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Document Your Research Thinking w/ Obsidian in 1 hour
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:off-2026-02-24-1200@rds-workshops.ucsb.edu
-DTSTAMP:20260112T234759
+DTSTAMP:20260112T234959
 DTSTART:20260224T200000
 DTEND:20260224T210000
 SUMMARY:From Résumé to Dynamic Portfolio
@@ -52,7 +74,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:off-2026-03-04-1200@rds-workshops.ucsb.edu
-DTSTAMP:20260112T234759
+DTSTAMP:20260112T234959
 DTSTART:20260304T200000
 DTEND:20260304T210000
 SUMMARY:Beyond Traditional Publishing: Research Outputs You Can Share and Get Credit For
