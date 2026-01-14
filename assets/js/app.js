@@ -5,6 +5,7 @@ class WorkshopCatalogue {
         this.filteredWorkshops = [];
         this.filters = this.getFiltersFromURL();
         this.sortBy = 'date';
+        this.viewMode = 'list'; // 'grid' or 'list'
         this.icalGenerator = null;
         
         this.init();
@@ -54,6 +55,15 @@ class WorkshopCatalogue {
         document.getElementById('sortBy').addEventListener('change', (e) => {
             this.sortBy = e.target.value;
             this.filterAndDisplayWorkshops();
+        });
+
+        // View toggle buttons
+        document.getElementById('gridViewBtn').addEventListener('click', () => {
+            this.setViewMode('grid');
+        });
+
+        document.getElementById('listViewBtn').addEventListener('click', () => {
+            this.setViewMode('list');
         });
 
         // Calendar subscription button
@@ -210,6 +220,24 @@ class WorkshopCatalogue {
         return offering;
     }
 
+    setViewMode(mode) {
+        this.viewMode = mode;
+        
+        // Update button states
+        const gridBtn = document.getElementById('gridViewBtn');
+        const listBtn = document.getElementById('listViewBtn');
+        
+        if (mode === 'grid') {
+            gridBtn.classList.add('active');
+            listBtn.classList.remove('active');
+        } else {
+            listBtn.classList.add('active');
+            gridBtn.classList.remove('active');
+        }
+        
+        this.displayWorkshops();
+    }
+
     displayWorkshops() {
         const workshopList = document.getElementById('workshopList');
         
@@ -224,9 +252,73 @@ class WorkshopCatalogue {
             return;
         }
 
-        workshopList.innerHTML = this.filteredWorkshops.map(workshop => 
-            this.createWorkshopCard(workshop)
-        ).join('');
+        if (this.viewMode === 'list') {
+            workshopList.innerHTML = `<div class="col-12">${this.filteredWorkshops.map(workshop => 
+                this.createWorkshopListItem(workshop)
+            ).join('')}</div>`;
+        } else {
+            workshopList.innerHTML = this.filteredWorkshops.map(workshop => 
+                this.createWorkshopCard(workshop)
+            ).join('');
+        }
+    }
+
+    createWorkshopListItem(workshop) {
+        const format = this.data.formats.find(f => f.id === workshop.format_id);
+        const formatLink = `<span class="filter-element-link" data-format="${format?.id}">${format?.label || 'Unknown Format'}</span>`;
+        const areas = workshop.area_ids.map(id => 
+            this.data.areas.find(a => a.id === id)?.label
+        ).filter(Boolean);
+        const audiences = workshop.audience_ids.map(id => 
+            this.data.audiences.find(a => a.id === id)?.label
+        ).filter(Boolean);
+        const instructors = workshop.instructor_ids.map(id => {
+            const instructor = this.data.instructors.find(i => i.id === id);
+            return `<span class="filter-element-link" data-instructor="${id}">${instructor?.name || id}</span>`;
+        }).join(', ');
+        const tags = workshop.tags.map(tag => `<span class="badge bg-secondary me-1" style="cursor: pointer;" data-tag="${tag}">${tag}</span>`).join('');
+        const offerings = this.data.offerings.filter(o => o.workshop_id === workshop.id);
+        const series = workshop.series_id ? this.data.series.find(s => s.id === workshop.series_id) : null;
+
+        const description = workshop.description || workshop.summary;
+        const maxLength = 400;
+        const needsTruncation = description.length > maxLength;
+        const truncatedDesc = needsTruncation ? description.substring(0, maxLength) + '...' : description;
+        const toggleButton = needsTruncation ? ' <span class="toggle-description" title="Show more">[+]</span>' : '';
+
+        return `
+            <div class="workshop-list-item mb-3 p-3 border rounded shadow-sm bg-white">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5 class="workshop-title mb-2">${workshop.title}</h5>
+                        ${series ? `<small class="text-muted d-block mb-2"><i class="bi bi-collection"></i> Part of: ${series.title}</small>` : ''}
+                        <p class="description-text mb-2" style="white-space: pre-line;" data-full="${description}" data-truncated="${truncatedDesc}">${truncatedDesc}${toggleButton}</p>
+                        
+                        <div class="workshop-meta mb-2">
+                            <small class="text-muted me-3">
+                                <i class="bi ${format?.icon || 'bi-app'}"></i> ${formatLink}
+                            </small>
+                            <small class="text-muted me-3">
+                                <strong>Areas:</strong> ${areas.join(', ')}
+                            </small>
+                            <small class="text-muted me-3">
+                                <strong>Audience:</strong> ${audiences.join(', ')}
+                            </small>
+                            <small class="text-muted">
+                                <strong>Instructors:</strong> ${instructors}
+                            </small>
+                        </div>
+
+                        <div class="mt-2">
+                            ${tags}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        ${this.createOfferingsSection(offerings)}
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
     createWorkshopCard(workshop) {

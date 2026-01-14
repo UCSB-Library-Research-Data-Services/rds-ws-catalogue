@@ -313,6 +313,55 @@ footer .footer-links a {
     border-left-color: var(--alert-color);
 }
 
+/* List View Styles */
+.workshop-list-item {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.workshop-list-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.workshop-list-item .workshop-title {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.workshop-list-item .workshop-meta {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .workshop-list-item .row > div {
+        margin-bottom: 1rem;
+    }
+    
+    .workshop-list-item .workshop-meta {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .workshop-list-item .workshop-meta small {
+        display: block;
+    }
+}
+
+/* View Toggle Buttons */
+.btn-group .btn.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.btn-group .btn:not(.active):hover {
+    background-color: #e9ecef;
+}
+
 /* Smooth Scrolling */
 html {
     scroll-behavior: smooth;
