@@ -192,7 +192,7 @@
         "end": "2026-01-27T12:00:00-08:00",
         "quarter": "Winter",
         "year": 2026,
-        "location": "Library",
+        "location": "Library 2509",
         "registration_url": "https://shoreline.ucsb.edu/library/rsvp_boot?id=2270303",
         "capacity": 60
     },
@@ -203,7 +203,7 @@
         "end": "2026-01-29T12:00:00-08:00",
         "quarter": "Winter",
         "year": 2026,
-        "location": "Library",
+        "location": "Library 2509",
         "registration_url": "https://shoreline.ucsb.edu/library/rsvp_boot?id=2270303",
         "capacity": 60
     }
