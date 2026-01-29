@@ -7,6 +7,7 @@ class WorkshopCatalogue {
         this.sortBy = 'date';
         this.viewMode = 'list'; // 'grid' or 'list'
         this.icalGenerator = null;
+        this.now = new Date();
         
         this.init();
     }
@@ -71,6 +72,15 @@ class WorkshopCatalogue {
             this.subscribeToCalendar();
         });
 
+        // Timeframe toggle buttons
+        document.getElementById('upcomingBtn').addEventListener('click', () => {
+            this.setTimeframe('upcoming');
+        });
+
+        document.getElementById('pastBtn').addEventListener('click', () => {
+            this.setTimeframe('past');
+        });
+
         document.getElementById('workshopList').addEventListener('click', (e) => {
             if (e.target.dataset.instructor) {
                 const instructorFilter = document.getElementById('instructorFilter');
@@ -123,6 +133,10 @@ class WorkshopCatalogue {
         document.getElementById('formatFilter').value = this.filters.format;
         document.getElementById('departmentFilter').value = this.filters.department;
         document.getElementById('instructorFilter').value = this.filters.instructor;
+        
+        // Set initial timeframe button state
+        const timeframe = this.filters.timeframe || 'upcoming';
+        this.setTimeframe(timeframe);
     }
 
     populateSelect(elementId, items, labelKey, valueKey) {
@@ -142,7 +156,8 @@ class WorkshopCatalogue {
             audience: '',
             format: '',
             department: '',
-            instructor: ''
+            instructor: '',
+            timeframe: 'upcoming'
         };
 
         document.getElementById('searchInput').value = '';
@@ -151,8 +166,9 @@ class WorkshopCatalogue {
         document.getElementById('formatFilter').value = '';
         document.getElementById('departmentFilter').value = '';
         document.getElementById('instructorFilter').value = '';
-
-        this.filterAndDisplayWorkshops();
+        
+        // Reset timeframe buttons
+        this.setTimeframe('upcoming');
     }
 
     filterAndDisplayWorkshops() {
@@ -165,6 +181,21 @@ class WorkshopCatalogue {
         // Filter active workshops
         this.filteredWorkshops = this.data.workshops.filter(workshop => {
             if (!workshop.is_active) return false;
+
+            // Timeframe filter (past vs upcoming)
+            const timeframe = this.filters.timeframe || 'upcoming';
+            const workshopOfferings = this.data.offerings.filter(o => o.workshop_id === workshop.id);
+            
+            if (workshopOfferings.length > 0) {
+                const hasUpcoming = workshopOfferings.some(o => new Date(o.start) > this.now);
+                const hasPast = workshopOfferings.some(o => new Date(o.start) <= this.now);
+                
+                if (timeframe === 'upcoming' && !hasUpcoming) return false;
+                if (timeframe === 'past' && !hasPast) return false;
+            } else {
+                // Workshops with no offerings are not shown in either view
+                return false;
+            }
 
             // Search filter
             if (this.filters.search) {
@@ -236,6 +267,24 @@ class WorkshopCatalogue {
         }
         
         this.displayWorkshops();
+    }
+
+    setTimeframe(timeframe) {
+        this.filters.timeframe = timeframe;
+        
+        // Update button states
+        const upcomingBtn = document.getElementById('upcomingBtn');
+        const pastBtn = document.getElementById('pastBtn');
+        
+        if (timeframe === 'upcoming') {
+            upcomingBtn.classList.add('active');
+            pastBtn.classList.remove('active');
+        } else {
+            pastBtn.classList.add('active');
+            upcomingBtn.classList.remove('active');
+        }
+        
+        this.filterAndDisplayWorkshops();
     }
 
     displayWorkshops() {
@@ -383,14 +432,27 @@ class WorkshopCatalogue {
     }
 
     createOfferingsSection(offerings) {
-        if (offerings.length === 0) {
-            return '<p class="text-muted mb-2"><small>No upcoming sessions scheduled</small></p>';
+        // Filter offerings based on current timeframe
+        const timeframe = this.filters.timeframe || 'upcoming';
+        const filteredOfferings = offerings.filter(offering => {
+            const offeringDate = new Date(offering.start);
+            if (timeframe === 'upcoming') {
+                return offeringDate > this.now;
+            } else {
+                return offeringDate <= this.now;
+            }
+        });
+
+        if (filteredOfferings.length === 0) {
+            const message = timeframe === 'upcoming' ? 'No upcoming sessions scheduled' : 'No past sessions recorded';
+            return `<p class="text-muted mb-2"><small>${message}</small></p>`;
         }
 
+        const sectionTitle = timeframe === 'upcoming' ? 'Upcoming Sessions' : 'Past Sessions';
         return `
             <div class="offerings mb-2">
-                <strong class="d-block mb-2"><i class="bi bi-calendar-event"></i> Upcoming Sessions:</strong>
-                ${offerings.map(offering => {
+                <strong class="d-block mb-2"><i class="bi bi-calendar-event"></i> ${sectionTitle}:</strong>
+                ${filteredOfferings.map(offering => {
                     const date = new Date(offering.start);
                     const endDate = new Date(offering.end);
                     return `
@@ -491,7 +553,8 @@ class WorkshopCatalogue {
             audience: params.get('audience') || '',
             format: params.get('format') || '',
             department: params.get('department') || '',
-            instructor: params.get('instructor') || ''
+            instructor: params.get('instructor') || '',
+            timeframe: params.get('timeframe') || 'upcoming'
         };
     }
     
@@ -738,6 +801,9 @@ class WorkshopCatalogue {
      */
     getFilterSummary() {
         const active = [];
+        
+        const timeframe = this.filters.timeframe || 'upcoming';
+        active.push(`Timeframe: ${timeframe.charAt(0).toUpperCase() + timeframe.slice(1)}`);
         
         if (this.filters.search) {
             active.push(`Search: "${this.filters.search}"`);
