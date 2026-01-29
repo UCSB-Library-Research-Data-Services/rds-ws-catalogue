@@ -105,6 +105,45 @@ header .lead {
     top: 0;
     max-height: 100vh;
     overflow-y: auto;
+    position: relative;
+    min-width: 200px;
+    max-width: 600px;
+}
+
+/* Resize handle */
+.sidebar-resize-handle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 100%;
+    cursor: col-resize;
+    background: transparent;
+    z-index: 100;
+    transition: background-color 0.2s;
+}
+
+.sidebar-resize-handle:hover {
+    background-color: var(--primary-color);
+    opacity: 0.3;
+}
+
+.sidebar-resize-handle.resizing {
+    background-color: var(--primary-color);
+    opacity: 0.5;
+}
+
+/* Prevent text selection during resize */
+body.resizing-sidebar {
+    user-select: none;
+    cursor: col-resize;
+}
+
+/* Hide resize handle on mobile */
+@media (max-width: 767px) {
+    .sidebar-resize-handle {
+        display: none;
+    }
 }
 
 .sidebar-content {

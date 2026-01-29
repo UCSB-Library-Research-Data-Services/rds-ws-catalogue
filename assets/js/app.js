@@ -89,6 +89,9 @@ class WorkshopCatalogue {
             });
         }
 
+        // Sidebar resizing
+        this.initSidebarResize();
+
         document.getElementById('workshopList').addEventListener('click', (e) => {
             if (e.target.dataset.instructor) {
                 const instructorFilter = document.getElementById('instructorFilter');
@@ -325,6 +328,49 @@ class WorkshopCatalogue {
         if (overlay) {
             overlay.remove();
         }
+    }
+
+    initSidebarResize() {
+        const handle = document.getElementById('sidebarResizeHandle');
+        const sidebar = document.getElementById('sidebarFilters');
+        
+        if (!handle || !sidebar) return;
+        
+        let isResizing = false;
+        let startX = 0;
+        let startWidth = 0;
+        
+        handle.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            startX = e.clientX;
+            startWidth = sidebar.offsetWidth;
+            
+            handle.classList.add('resizing');
+            document.body.classList.add('resizing-sidebar');
+            
+            e.preventDefault();
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+            
+            const width = startWidth + (e.clientX - startX);
+            const minWidth = 200;
+            const maxWidth = 600;
+            
+            if (width >= minWidth && width <= maxWidth) {
+                sidebar.style.width = width + 'px';
+                sidebar.style.flex = 'none';
+            }
+        });
+        
+        document.addEventListener('mouseup', () => {
+            if (isResizing) {
+                isResizing = false;
+                handle.classList.remove('resizing');
+                document.body.classList.remove('resizing-sidebar');
+            }
+        });
     }
 
     displayWorkshops() {
