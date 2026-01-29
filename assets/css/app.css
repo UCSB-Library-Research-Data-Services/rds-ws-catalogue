@@ -89,6 +89,12 @@ header .lead {
     }
 }
 
+/* Upcoming and Previous Workshops */
+
+.upcoming-workshops {
+    margin-right: 1rem;
+}
+
 /* Collapsible Filters */
 .card-header[role="button"] {
     cursor: pointer;
