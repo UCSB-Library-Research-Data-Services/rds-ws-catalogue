@@ -118,6 +118,20 @@
       "offering_ids": [],
       "tags": ["publishing", "Quarto", "GitHub", "open science", "research outputs", "scholarly communication"],
       "is_active": true
+    },
+    {
+      "id": "ws-ai-qualitative",
+      "title": "Critical Integration of GenAI in Qualitative Analysis",
+      "summary": "Join us for an exploration of how Generative AI can be strategically integrated into qualitative research workflows. This session introduces the Guided AI Thematic Analysis (GAITA) framework, a structured approach to using AI for coding and theme development while upholding rigorous analytical standards. Participants will then experience a live demonstration of an AI assistant embedded in QualCoder, showcasing how AI can support qualitative data analysis without replacing researcher judgment. Attendees may follow along step by step or observe the workflow in action, gaining practical insights and best practices for critically and effectively incorporating AI tools into qualitative research.",
+      "series_id": "",
+      "format_id": "fmt-online",
+      "area_ids": ["area-humanities", "area-social-sciences"],
+      "audience_ids": ["aud-grad", "aud-faculty", "aud-staff"],
+      "instructor_ids": ["inst-renata"],
+      "department_ids": ["dept-rds"],
+      "offering_ids": [],
+      "tags": ["AI", "qualitative analysis"],
+      "is_active": true
     }
   ],
 
@@ -230,6 +244,17 @@
       "year": 2026,
       "location": "Zoom",
       "registration_url": "https://ucsb.zoom.us/meeting/register/c4j26ikuRw-T0MhvL-cnHQ",
+      "capacity": 60
+    },
+    {
+      "id": "off-2026-02-13-1100",
+      "workshop_id": "ws-ai-qualitative",
+      "start": "2026-02-13T10:00:00-08:00",
+      "end": "2026-02-13T11:50:00-08:00",
+      "quarter": "Winter",
+      "year": 2026,
+      "location": "Zoom",
+      "registration_url": "https://ucsb.zoom.us/meeting/register/XtWciI8mRA65DRsjR-J9dw",
       "capacity": 60
     }
   ],
