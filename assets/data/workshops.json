@@ -97,7 +97,7 @@
         "description": "Turn websites into usable data. In this intermediate workshop, you will master web scraping using Python's Requests, Beautiful Soup, and Selenium. Learn to read and navigate the backbone of a website (its HTML content) and automate data extraction from both static and dynamic web pages.\nDesigned for participants with basic knowledge of Python programming.",
         "series_id": "",
         "format_id": "fmt-in-person",
-        "area_ids": ["area-data-mgmt", "area-sciences"],
+        "area_ids": ["area-data-mgmt", "area-sciences", "area-humanities"],
         "audience_ids": ["aud-grad", "aud-faculty", "aud-staff"],
         "instructor_ids": ["inst-julien", "inst-jairo", "inst-jose"],
         "department_ids": ["dept-dream", "dept-rds"],
