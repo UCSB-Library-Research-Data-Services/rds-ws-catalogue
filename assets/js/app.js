@@ -480,6 +480,7 @@ class WorkshopCatalogue {
                             <small class="d-block text-muted">
                                 <i class="bi bi-person-check"></i> Capacity: ${offering.capacity}
                             </small>
+                            ${timeframe === 'upcoming' ? `
                             <div class="mt-2 d-flex gap-1 flex-wrap">
                                 ${offering.registration_url ? 
                                     `<a href="${offering.registration_url}" class="btn btn-sm btn-primary" target="_blank">
@@ -490,6 +491,7 @@ class WorkshopCatalogue {
                                 }
                                 ${this.createAddToCalendarButton(offering)}
                             </div>
+                            ` : ''}
                         </div>
                     `;
                 }).join('')}
