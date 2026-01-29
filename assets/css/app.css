@@ -107,7 +107,7 @@ header .lead {
     overflow-y: auto;
     position: relative;
     min-width: 200px;
-    max-width: 600px;
+    max-width: 400px;
 }
 
 /* Resize handle */
