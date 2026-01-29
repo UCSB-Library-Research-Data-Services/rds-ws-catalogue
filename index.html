@@ -6,7 +6,7 @@
         <title>RDS Workshops Catalogue</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="assets/css/app.css?v=0.0.23">
+        <link rel="stylesheet" href="assets/css/app.css?v=0.0.24">
     </head>
     <body>
         <div class="container-fluid">
@@ -22,105 +22,109 @@
                 </div>
             </header>
 
-            <div class="container">
-                <!-- Filters Section -->
-                <div class="row mb-4">
-                    <div class="card-body bg-light py-2 upcoming-workshops">
-                                <div class="d-flex justify-content-end align-items-right gap-2">
-                                    <small class="text-muted fw-bold">Show:</small>
-                                    <div class="btn-group btn-group-sm" role="group" aria-label="Timeframe toggle">
-                                        <button type="button" class="btn btn-outline-primary active" id="upcomingBtn" data-timeframe="upcoming">
-                                            <i class="bi bi-calendar-plus"></i> Upcoming
-                                        </button>
-                                        <button type="button" class="btn btn-outline-primary" id="pastBtn" data-timeframe="past">
-                                            <i class="bi bi-calendar-check"></i> Past
-                                        </button>
-                                    </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Sidebar Filters -->
+                    <aside class="col-lg-3 col-md-4 sidebar-filters" id="sidebarFilters">
+                        <div class="sidebar-content">
+                            <!-- Timeframe Toggle -->
+                            <div class="mb-4">
+                                <h6 class="sidebar-section-title">Show Workshops</h6>
+                                <div class="btn-group w-100" role="group" aria-label="Timeframe toggle">
+                                    <button type="button" class="btn btn-outline-primary active" id="upcomingBtn" data-timeframe="upcoming">
+                                        <i class="bi bi-calendar-plus"></i> Upcoming
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary" id="pastBtn" data-timeframe="past">
+                                        <i class="bi bi-calendar-check"></i> Past
+                                    </button>
                                 </div>
                             </div>
-                    <div class="col-12">
-                        <div class="card shadow-sm">
-                            <div class="card-header bg-primary text-white" role="button" data-bs-toggle="collapse" data-bs-target="#filtersCollapse" aria-expanded="true" aria-controls="filtersCollapse">
-                                <h5 class="mb-0 d-flex justify-content-between align-items-center">
-                                    <span><i class="bi bi-funnel"></i> Filters</span>
-                                    <i class="bi bi-chevron-down collapse-icon"></i>
-                                </h5>
+
+                            <hr>
+
+                            <!-- Filters Header -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="sidebar-section-title mb-0"><i class="bi bi-funnel"></i> Filters</h6>
+                                <button class="btn btn-sm btn-link text-decoration-none p-0" id="clearFilters">
+                                    <i class="bi bi-x-circle"></i> Clear
+                                </button>
                             </div>
-                            
-                            <div class="collapse show" id="filtersCollapse">
-                                <div class="card-body">
-                                    <div class="row g-3">
-                                    <!-- Search Box -->
-                                    <div class="col-md-6">
-                                        <label for="searchInput" class="form-label">Search</label>
-                                        <input type="search" class="form-control" id="searchInput" placeholder="Search workshops...">
-                                    </div>
 
-                                    <!-- Area Filter -->
-                                    <div class="col-md-6">
-                                        <label for="areaFilter" class="form-label">Research Area</label>
-                                        <select class="form-select" id="areaFilter">
-                                            <option value="">All Areas</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Audience Filter -->
-                                    <div class="col-md-6">
-                                        <label for="audienceFilter" class="form-label">Audience</label>
-                                        <select class="form-select" id="audienceFilter">
-                                            <option value="">All Audiences</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Format Filter -->
-                                    <div class="col-md-6">
-                                        <label for="formatFilter" class="form-label">Format</label>
-                                        <select class="form-select" id="formatFilter">
-                                            <option value="">All Formats</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Department Filter -->
-                                    <div class="col-md-6">
-                                        <label for="departmentFilter" class="form-label">Department</label>
-                                        <select class="form-select" id="departmentFilter">
-                                            <option value="">All Departments</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Instructor Filter -->
-                                    <div class="col-md-6">
-                                        <label for="instructorFilter" class="form-label">Instructor</label>
-                                        <select class="form-select" id="instructorFilter">
-                                            <option value="">All Instructors</option>
-                                        </select>
-                                    </div>
-                                </div>
+                            <!-- Search Box -->
+                            <div class="mb-3">
+                                <label for="searchInput" class="form-label">Search</label>
+                                <input type="search" class="form-control form-control-sm" id="searchInput" placeholder="Search workshops...">
                             </div>
-                        </div>
-                        <div class="card-footer bg-light border-top">
-                            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
-                                <div class="active-filters-container flex-grow-1" id="activeFilters">
+
+                            <!-- Area Filter -->
+                            <div class="mb-3">
+                                <label for="areaFilter" class="form-label">Research Area</label>
+                                <select class="form-select form-select-sm" id="areaFilter">
+                                    <option value="">All Areas</option>
+                                </select>
+                            </div>
+
+                            <!-- Audience Filter -->
+                            <div class="mb-3">
+                                <label for="audienceFilter" class="form-label">Audience</label>
+                                <select class="form-select form-select-sm" id="audienceFilter">
+                                    <option value="">All Audiences</option>
+                                </select>
+                            </div>
+
+                            <!-- Format Filter -->
+                            <div class="mb-3">
+                                <label for="formatFilter" class="form-label">Format</label>
+                                <select class="form-select form-select-sm" id="formatFilter">
+                                    <option value="">All Formats</option>
+                                </select>
+                            </div>
+
+                            <!-- Department Filter -->
+                            <div class="mb-3">
+                                <label for="departmentFilter" class="form-label">Department</label>
+                                <select class="form-select form-select-sm" id="departmentFilter">
+                                    <option value="">All Departments</option>
+                                </select>
+                            </div>
+
+                            <!-- Instructor Filter -->
+                            <div class="mb-3">
+                                <label for="instructorFilter" class="form-label">Instructor</label>
+                                <select class="form-select form-select-sm" id="instructorFilter">
+                                    <option value="">All Instructors</option>
+                                </select>
+                            </div>
+
+                            <hr>
+
+                            <!-- Active Filters -->
+                            <div class="mb-3" id="activeFiltersContainer">
+                                <small class="text-muted d-block mb-2">Active filters:</small>
+                                <div id="activeFilters" class="d-flex flex-wrap gap-1">
                                     <!-- Active filter pills will be inserted here -->
                                 </div>
-                                <div class="filter-actions">
-                                    <button class="btn btn-secondary btn-sm" id="clearFilters">
-                                        <i class="bi bi-x-circle"></i> Clear All
-                                    </button>
-                                    <button class="btn btn-primary btn-sm ms-2" id="subscribeCalendar">
-                                        <i class="bi bi-bell"></i> Get Reminders
-                                    </button>
-                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-                <!-- Results Count -->
-                <div class="row mb-3">
-                    <div class="col-12">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <!-- Calendar Subscription -->
+                            <button class="btn btn-primary w-100" id="subscribeCalendar">
+                                <i class="bi bi-bell"></i> Get Reminders
+                            </button>
+                        </div>
+                    </aside>
+
+                    <!-- Main Content -->
+                    <main class="col-lg-9 col-md-8">
+
+                        <!-- Mobile Filter Toggle -->
+                        <button class="btn btn-outline-primary mb-3 d-md-none" type="button" id="filterToggleBtn">
+                            <i class="bi bi-funnel"></i> Filters
+                        </button>
+
+                        <!-- Results Count -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                             <h5 id="resultsCount" class="mb-0">Loading workshops...</h5>
                             <div class="d-flex align-items-center gap-2">
                                 <div class="btn-group" role="group" aria-label="View toggle">
@@ -143,9 +147,11 @@
                     </div>
                 </div>
 
-                <!-- Workshop List -->
-                <div class="row" id="workshopList">
-                    <!-- Workshop cards will be inserted here -->
+                        <!-- Workshop List -->
+                        <div class="row" id="workshopList">
+                            <!-- Workshop cards will be inserted here -->
+                        </div>
+                    </main>
                 </div>
             </div>
 

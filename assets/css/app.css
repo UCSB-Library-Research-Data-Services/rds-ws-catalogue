@@ -95,6 +95,100 @@ header .lead {
     margin-right: 1rem;
 }
 
+/* Sidebar Filters */
+.sidebar-filters {
+    background-color: white;
+    border-right: 1px solid var(--border-color);
+    padding: 1.5rem;
+    min-height: calc(100vh - 250px);
+    position: sticky;
+    top: 0;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar-content {
+    position: relative;
+}
+
+.sidebar-section-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+}
+
+.sidebar-filters .form-label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #495057;
+    margin-bottom: 0.25rem;
+}
+
+.sidebar-filters .form-control,
+.sidebar-filters .form-select {
+    font-size: 0.9rem;
+}
+
+.sidebar-filters hr {
+    border-color: var(--border-color);
+    opacity: 0.5;
+    margin: 1rem 0;
+}
+
+#activeFiltersContainer {
+    display: none;
+}
+
+#activeFiltersContainer.has-filters {
+    display: block;
+}
+
+/* Mobile sidebar toggle */
+@media (max-width: 767px) {
+    .sidebar-filters {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        max-width: 320px;
+        height: 100vh;
+        z-index: 1050;
+        transition: left 0.3s ease-in-out;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        padding-top: 1rem;
+        overflow-y: auto;
+    }
+    
+    .sidebar-filters.show {
+        left: 0;
+    }
+    
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1049;
+    }
+    
+    .sidebar-overlay.show {
+        display: block;
+    }
+}
+
+/* Tablet and up - sidebar always visible */
+@media (min-width: 768px) {
+    .sidebar-filters {
+        display: block !important;
+    }
+}
+
 /* Collapsible Filters */
 .card-header[role="button"] {
     cursor: pointer;

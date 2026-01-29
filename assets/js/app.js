@@ -81,6 +81,14 @@ class WorkshopCatalogue {
             this.setTimeframe('past');
         });
 
+        // Mobile filter toggle
+        const filterToggleBtn = document.getElementById('filterToggleBtn');
+        if (filterToggleBtn) {
+            filterToggleBtn.addEventListener('click', () => {
+                this.toggleSidebar();
+            });
+        }
+
         document.getElementById('workshopList').addEventListener('click', (e) => {
             if (e.target.dataset.instructor) {
                 const instructorFilter = document.getElementById('instructorFilter');
@@ -285,6 +293,38 @@ class WorkshopCatalogue {
         }
         
         this.filterAndDisplayWorkshops();
+    }
+
+    toggleSidebar() {
+        const sidebar = document.getElementById('sidebarFilters');
+        const isOpen = sidebar.classList.contains('show');
+        
+        if (isOpen) {
+            sidebar.classList.remove('show');
+            this.removeOverlay();
+        } else {
+            sidebar.classList.add('show');
+            this.createOverlay();
+        }
+    }
+
+    createOverlay() {
+        // Check if overlay already exists
+        if (document.querySelector('.sidebar-overlay')) return;
+        
+        const overlay = document.createElement('div');
+        overlay.className = 'sidebar-overlay show';
+        overlay.addEventListener('click', () => {
+            this.toggleSidebar();
+        });
+        document.body.appendChild(overlay);
+    }
+
+    removeOverlay() {
+        const overlay = document.querySelector('.sidebar-overlay');
+        if (overlay) {
+            overlay.remove();
+        }
     }
 
     displayWorkshops() {
@@ -618,9 +658,15 @@ class WorkshopCatalogue {
             if (instructor) pills.push(this.createFilterPill('instructor', `Instructor: ${instructor.name}`));
         }
 
-        container.innerHTML = pills.length > 0 
-            ? `<small class="text-muted me-2">Active filters:</small>` + pills.join('')
-            : '';
+        container.innerHTML = pills.join('');
+        
+        // Show/hide the container based on whether there are active filters
+        const filtersContainer = document.getElementById('activeFiltersContainer');
+        if (pills.length > 0) {
+            filtersContainer.classList.add('has-filters');
+        } else {
+            filtersContainer.classList.remove('has-filters');
+        }
     }
 
     /**
