@@ -104,6 +104,20 @@
         "offering_ids": ["off-2026-01-27-1000", "off-2026-01-29-1000"],
         "tags": ["web scraping", "python", "data collection"],
         "is_active": true
+    },
+    {
+      "id": "ws-quarto-publishing",
+      "title": "Publishing a Quarto Website on GitHub",
+      "summary": "Are you looking for a simple, professional way to showcase your research, CV, and/or complement your publications with more interactive content? What if we were to tell you you can create a free website with Quarto & GitHub pages to promote your wokr? Join us for a hands-on workshop on building websites using Quarto and GitHub Pages. If you can write in Markdown, you can build a website — no web development knowledge is needed. In this session, you will learn how to turn your analysis and writing into a sleek website hosted for free on GitHub. Whether you use R, Python, or just plain text, this workflow allows you to maintain a dynamic academic portfolio with minimal effort.",
+      "series_id": "",
+      "format_id": "fmt-online",
+      "area_ids": ["area-data-mgmt", "area-sciences", "area-humanities", "area-social-sciences"],
+      "audience_ids": ["aud-grad", "aud-faculty", "aud-staff"],
+      "instructor_ids": ["inst-julien", "inst-greg"],
+      "department_ids": ["dept-rds"],
+      "offering_ids": [],
+      "tags": ["publishing", "Quarto", "GitHub", "open science", "research outputs", "scholarly communication"],
+      "is_active": true
     }
   ],
 
@@ -206,6 +220,17 @@
         "location": "Library 2509",
         "registration_url": "https://shoreline.ucsb.edu/library/rsvp_boot?id=2270303",
         "capacity": 60
+    },
+    {
+      "id": "off-2026-02-10-1100",
+      "workshop_id": "ws-quarto-publishing",
+      "start": "2026-02-10T11:00:00-08:00",
+      "end": "2026-02-10T11:50:00-08:00",
+      "quarter": "Winter",
+      "year": 2026,
+      "location": "Zoom",
+      "registration_url": "https://ucsb.zoom.us/meeting/register/c4j26ikuRw-T0MhvL-cnHQ",
+      "capacity": 60
     }
   ],
 
