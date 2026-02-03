@@ -1,0 +1,938 @@
+// Workshop Catalogue App - SQLite Version
+class WorkshopCatalogue {
+    constructor() {
+        this.db = null;
+        this.filteredWorkshops = [];
+        this.filters = this.getFiltersFromURL();
+        this.sortBy = 'date';
+        this.viewMode = 'list'; // 'grid' or 'list'
+        this.icalGenerator = null;
+        this.now = new Date();
+        
+        // Cache for lookup tables
+        this.lookups = {
+            departments: [],
+            formats: [],
+            areas: [],
+            audiences: [],
+            instructors: [],
+            series: []
+        };
+        
+        this.init();
+    }
+
+    async init() {
+        try {
+            // Initialize database
+            this.db = new WorkshopDB();
+            await this.db.init();
+            
+            // Load lookup tables into cache
+            await this.loadLookups();
+            
+            // Initialize ICS generator with lookup data
+            this.icalGenerator = new ICalGenerator(this.getLegacyDataFormat());
+            
+            this.setupEventListeners();
+            this.populateFilters();
+            this.filterAndDisplayWorkshops();
+        } catch (error) {
+            console.error('Error initializing app:', error);
+            this.showError('Failed to load workshop data <i class="bi bi-emoji-dizzy"></i>');
+        }
+    }
+
+    /**
+     * Load all lookup tables into memory for fast access
+     */
+    async loadLookups() {
+        this.lookups.departments = this.db.getDepartments();
+        this.lookups.formats = this.db.getFormats();
+        this.lookups.areas = this.db.getAreas();
+        this.lookups.audiences = this.db.getAudiences();
+        this.lookups.instructors = this.db.getInstructors();
+        this.lookups.series = this.db.getSeries();
+        
+        console.log('📚 Loaded lookup tables');
+    }
+
+    /**
+     * Get data in legacy format for ICS generator compatibility
+     */
+    getLegacyDataFormat() {
+        return {
+            workshops: this.db.getAllWorkshops(),
+            offerings: this.db.query('SELECT * FROM offerings'),
+            instructors: this.lookups.instructors,
+            departments: this.lookups.departments,
+            formats: this.lookups.formats,
+            areas: this.lookups.areas,
+            audiences: this.lookups.audiences,
+            series: this.lookups.series
+        };
+    }
+
+    setupEventListeners() {
+        // Search input
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            this.filters.search = e.target.value.toLowerCase();
+            this.filterAndDisplayWorkshops();
+        });
+
+        // Filter dropdowns
+        ['areaFilter', 'audienceFilter', 'formatFilter', 'departmentFilter', 'instructorFilter'].forEach(id => {
+            document.getElementById(id).addEventListener('change', (e) => {
+                const filterKey = id.replace('Filter', '');
+                this.filters[filterKey] = e.target.value;
+                this.filterAndDisplayWorkshops();
+            });
+        });
+
+        // Clear filters button
+        document.getElementById('clearFilters').addEventListener('click', () => {
+            this.clearFilters();
+        });
+
+        // Sort dropdown
+        document.getElementById('sortBy').addEventListener('change', (e) => {
+            this.sortBy = e.target.value;
+            this.filterAndDisplayWorkshops();
+        });
+
+        // View toggle buttons
+        document.getElementById('gridViewBtn').addEventListener('click', () => {
+            this.setViewMode('grid');
+        });
+
+        document.getElementById('listViewBtn').addEventListener('click', () => {
+            this.setViewMode('list');
+        });
+
+        // Calendar subscription button
+        document.getElementById('subscribeCalendar').addEventListener('click', () => {
+            this.subscribeToCalendar();
+        });
+
+        // Timeframe toggle buttons
+        document.getElementById('upcomingBtn').addEventListener('click', () => {
+            this.setTimeframe('upcoming');
+        });
+
+        document.getElementById('pastBtn').addEventListener('click', () => {
+            this.setTimeframe('past');
+        });
+
+        // Mobile filter toggle
+        const filterToggleBtn = document.getElementById('filterToggleBtn');
+        if (filterToggleBtn) {
+            filterToggleBtn.addEventListener('click', () => {
+                this.toggleSidebar();
+            });
+        }
+
+        // Sidebar resizing
+        this.initSidebarResize();
+
+        document.getElementById('workshopList').addEventListener('click', (e) => {
+            if (e.target.dataset.instructor) {
+                const instructorFilter = document.getElementById('instructorFilter');
+                instructorFilter.value = e.target.dataset.instructor;
+                instructorFilter.dispatchEvent(new Event('change'));
+            } else if (e.target.dataset.format) {
+                const formatFilter = document.getElementById('formatFilter');
+                formatFilter.value = e.target.dataset.format;
+                formatFilter.dispatchEvent(new Event('change'));
+            } else if (e.target.dataset.tag) {
+                const searchInput = document.getElementById('searchInput');
+                searchInput.value = e.target.dataset.tag;
+                searchInput.dispatchEvent(new Event('input'));
+            } else if (e.target.classList.contains('toggle-description')) {
+                const descriptionEl = e.target.parentElement;
+                const isExpanded = descriptionEl.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    descriptionEl.classList.remove('expanded');
+                    descriptionEl.innerHTML = descriptionEl.dataset.truncated + ' <span class="toggle-description" title="Show more">[+]</span>';
+                } else {
+                    descriptionEl.classList.add('expanded');
+                    descriptionEl.innerHTML = descriptionEl.dataset.full + ' <span class="toggle-description" title="Show less">[-]</span>';
+                }
+            }
+        });
+    }
+
+    populateFilters() {
+        // Populate area filter
+        this.populateSelect('areaFilter', this.lookups.areas, 'label', 'id');
+
+        // Populate audience filter
+        this.populateSelect('audienceFilter', this.lookups.audiences, 'label', 'id');
+
+        // Populate format filter
+        this.populateSelect('formatFilter', this.lookups.formats, 'label', 'id');
+
+        // Populate department filter
+        this.populateSelect('departmentFilter', this.lookups.departments, 'label', 'id');
+
+        // Populate instructor filter
+        this.populateSelect('instructorFilter', this.lookups.instructors, 'name', 'id');
+
+        document.getElementById('searchInput').value = this.filters.search;
+        document.getElementById('areaFilter').value = this.filters.area;
+        document.getElementById('audienceFilter').value = this.filters.audience;
+        document.getElementById('formatFilter').value = this.filters.format;
+        document.getElementById('departmentFilter').value = this.filters.department;
+        document.getElementById('instructorFilter').value = this.filters.instructor;
+        
+        // Set initial timeframe button state
+        const timeframe = this.filters.timeframe || 'upcoming';
+        this.setTimeframe(timeframe);
+    }
+
+    populateSelect(elementId, items, labelKey, valueKey) {
+        const select = document.getElementById(elementId);
+        items.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item[valueKey];
+            option.textContent = item[labelKey];
+            select.appendChild(option);
+        });
+    }
+
+    clearFilters() {
+        this.filters = {
+            search: '',
+            area: '',
+            audience: '',
+            format: '',
+            department: '',
+            instructor: '',
+            timeframe: 'upcoming'
+        };
+
+        document.getElementById('searchInput').value = '';
+        document.getElementById('areaFilter').value = '';
+        document.getElementById('audienceFilter').value = '';
+        document.getElementById('formatFilter').value = '';
+        document.getElementById('departmentFilter').value = '';
+        document.getElementById('instructorFilter').value = '';
+        
+        // Reset timeframe buttons
+        this.setTimeframe('upcoming');
+    }
+
+    filterAndDisplayWorkshops() {
+        // Update URL with current filters
+        this.updateURL();
+        
+        // Update active filters display
+        this.updateActiveFiltersDisplay();
+
+        const nowISO = this.now.toISOString();
+        
+        // Get workshops with details using SQL queries
+        this.filteredWorkshops = this.db.getWorkshopsWithDetails({
+            area: this.filters.area,
+            audience: this.filters.audience,
+            format: this.filters.format,
+            department: this.filters.department,
+            instructor: this.filters.instructor,
+            search: this.filters.search,
+            timeframe: this.filters.timeframe
+        }, nowISO);
+
+        // Sort workshops
+        this.sortWorkshops();
+
+        // Display workshops
+        this.displayWorkshops();
+        this.updateResultsCount();
+    }
+
+    sortWorkshops() {
+        const nowISO = this.now.toISOString();
+        const timeframe = this.filters.timeframe || 'upcoming';
+        
+        this.filteredWorkshops.sort((a, b) => {
+            if (this.sortBy === 'date') {
+                // Get relevant offering based on timeframe
+                const getRelevantOffering = (workshop) => {
+                    const offerings = workshop.offerings || [];
+                    if (timeframe === 'upcoming') {
+                        return offerings.find(o => o.start > nowISO);
+                    } else {
+                        // For past, get the most recent past offering
+                        const pastOfferings = offerings.filter(o => o.start <= nowISO);
+                        return pastOfferings[pastOfferings.length - 1];
+                    }
+                };
+                
+                const offeringA = getRelevantOffering(a);
+                const offeringB = getRelevantOffering(b);
+                
+                if (!offeringA) return 1;
+                if (!offeringB) return -1;
+                
+                if (timeframe === 'upcoming') {
+                    return new Date(offeringA.start) - new Date(offeringB.start);
+                } else {
+                    return new Date(offeringB.start) - new Date(offeringA.start);
+                }
+            } else if (this.sortBy === 'title') {
+                return a.title.localeCompare(b.title);
+            }
+        });
+    }
+
+    setViewMode(mode) {
+        this.viewMode = mode;
+        
+        // Update button states
+        const gridBtn = document.getElementById('gridViewBtn');
+        const listBtn = document.getElementById('listViewBtn');
+        
+        if (mode === 'grid') {
+            gridBtn.classList.add('active');
+            listBtn.classList.remove('active');
+        } else {
+            listBtn.classList.add('active');
+            gridBtn.classList.remove('active');
+        }
+        
+        this.displayWorkshops();
+    }
+
+    setTimeframe(timeframe) {
+        this.filters.timeframe = timeframe;
+        
+        // Update button states
+        const upcomingBtn = document.getElementById('upcomingBtn');
+        const pastBtn = document.getElementById('pastBtn');
+        
+        if (timeframe === 'upcoming') {
+            upcomingBtn.classList.add('active');
+            pastBtn.classList.remove('active');
+        } else {
+            pastBtn.classList.add('active');
+            upcomingBtn.classList.remove('active');
+        }
+        
+        this.filterAndDisplayWorkshops();
+    }
+
+    toggleSidebar() {
+        const sidebar = document.getElementById('sidebarFilters');
+        const isOpen = sidebar.classList.contains('show');
+        
+        if (isOpen) {
+            sidebar.classList.remove('show');
+            this.removeOverlay();
+        } else {
+            sidebar.classList.add('show');
+            this.createOverlay();
+        }
+    }
+
+    createOverlay() {
+        // Check if overlay already exists
+        if (document.querySelector('.sidebar-overlay')) return;
+        
+        const overlay = document.createElement('div');
+        overlay.className = 'sidebar-overlay show';
+        overlay.addEventListener('click', () => {
+            this.toggleSidebar();
+        });
+        document.body.appendChild(overlay);
+    }
+
+    removeOverlay() {
+        const overlay = document.querySelector('.sidebar-overlay');
+        if (overlay) {
+            overlay.remove();
+        }
+    }
+
+    initSidebarResize() {
+        const handle = document.getElementById('sidebarResizeHandle');
+        const sidebar = document.getElementById('sidebarFilters');
+        
+        if (!handle || !sidebar) return;
+        
+        let isResizing = false;
+        let startX = 0;
+        let startWidth = 0;
+        
+        handle.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            startX = e.clientX;
+            startWidth = sidebar.offsetWidth;
+            
+            handle.classList.add('resizing');
+            document.body.classList.add('resizing-sidebar');
+            
+            e.preventDefault();
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+            
+            const width = startWidth + (e.clientX - startX);
+            const minWidth = 200;
+            const maxWidth = 600;
+            
+            if (width >= minWidth && width <= maxWidth) {
+                sidebar.style.width = width + 'px';
+                sidebar.style.flex = 'none';
+            }
+        });
+        
+        document.addEventListener('mouseup', () => {
+            if (isResizing) {
+                isResizing = false;
+                handle.classList.remove('resizing');
+                document.body.classList.remove('resizing-sidebar');
+            }
+        });
+    }
+
+    displayWorkshops() {
+        const workshopList = document.getElementById('workshopList');
+        
+        if (this.filteredWorkshops.length === 0) {
+            workshopList.innerHTML = `
+                <div class="col-12">
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle"></i> No workshops found matching your criteria.
+                    </div>
+                </div>
+            `;
+            return;
+        }
+
+        if (this.viewMode === 'list') {
+            workshopList.innerHTML = `<div class="col-12">${this.filteredWorkshops.map(workshop => 
+                this.createWorkshopListItem(workshop)
+            ).join('')}</div>`;
+        } else {
+            workshopList.innerHTML = this.filteredWorkshops.map(workshop => 
+                this.createWorkshopCard(workshop)
+            ).join('');
+        }
+    }
+
+    createWorkshopListItem(workshop) {
+        const formatLink = `<span class="filter-element-link" data-format="${workshop.format_id}">${workshop.format_label || 'Unknown Format'}</span>`;
+        const areas = (workshop.areas || []).map(a => a.label).join(', ');
+        const audiences = (workshop.audiences || []).map(a => a.label).join(', ');
+        const instructors = (workshop.instructors || []).map(i => 
+            `<span class="filter-element-link" data-instructor="${i.id}">${i.name}</span>`
+        ).join(', ');
+        const tags = (workshop.tags || []).map(tag => 
+            `<span class="badge bg-secondary me-1" style="cursor: pointer;" data-tag="${tag}">${tag}</span>`
+        ).join('');
+
+        const description = workshop.description || workshop.summary;
+        const maxLength = 400;
+        const needsTruncation = description && description.length > maxLength;
+        const truncatedDesc = needsTruncation ? description.substring(0, maxLength) + '...' : (description || '');
+        const toggleButton = needsTruncation ? ' <span class="toggle-description" title="Show more">[+]</span>' : '';
+
+        return `
+            <div class="workshop-list-item mb-3 p-3 border rounded shadow-sm bg-white">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5 class="workshop-title mb-2">${workshop.title}</h5>
+                        ${workshop.series_title ? `<small class="text-muted d-block mb-2"><i class="bi bi-collection"></i> Part of: ${workshop.series_title}</small>` : ''}
+                        <p class="description-text mb-2" style="white-space: pre-line;" data-full="${description || ''}" data-truncated="${truncatedDesc}">${truncatedDesc}${toggleButton}</p>
+                        
+                        <div class="workshop-meta mb-2">
+                            <small class="text-muted me-3">
+                                <i class="bi ${workshop.format_icon || 'bi-app'}"></i> ${formatLink}
+                            </small>
+                            <small class="text-muted me-3">
+                                <strong>Areas:</strong> ${areas || 'N/A'}
+                            </small>
+                            <small class="text-muted me-3">
+                                <strong>Audience:</strong> ${audiences || 'N/A'}
+                            </small>
+                            <small class="text-muted">
+                                <strong>Instructors:</strong> ${instructors || 'N/A'}
+                            </small>
+                        </div>
+
+                        <div class="mt-2">
+                            ${tags}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        ${this.createOfferingsSection(workshop)}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    createWorkshopCard(workshop) {
+        const formatLink = `<span class="filter-element-link" data-format="${workshop.format_id}">${workshop.format_label || 'Unknown Format'}</span>`;
+        const areas = (workshop.areas || []).map(a => a.label).join(', ');
+        const audiences = (workshop.audiences || []).map(a => a.label).join(', ');
+        const instructors = (workshop.instructors || []).map(i => 
+            `<span class="filter-element-link" data-instructor="${i.id}">${i.name}</span>`
+        ).join(', ');
+        const tags = (workshop.tags || []).map(tag => 
+            `<span class="badge bg-secondary me-1" style="cursor: pointer;" data-tag="${tag}">${tag}</span>`
+        ).join('');
+
+        // Handle description truncation
+        const description = workshop.description || workshop.summary;
+        const maxLength = 150;
+        const needsTruncation = description && description.length > maxLength;
+        const truncatedDesc = needsTruncation ? description.substring(0, maxLength) + '...' : (description || '');
+        const toggleButton = needsTruncation ? ' <span class="toggle-description" title="Show more">[+]</span>' : '';
+
+        return `
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm workshop-card">
+                    <div class="card-header bg-light">
+                        <h5 class="card-title mb-1">${workshop.title}</h5>
+                        ${workshop.series_title ? `<small class="text-muted"><i class="bi bi-collection"></i> Part of: ${workshop.series_title}</small>` : ''}
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text description-text" style="white-space: pre-line;" data-full="${description || ''}" data-truncated="${truncatedDesc}">${truncatedDesc}${toggleButton}</p>
+                        
+                        <div class="mb-3">
+                            <small class="text-muted d-block mb-1">
+                                <i class="bi ${workshop.format_icon || 'bi-app'}"></i> ${formatLink}
+                            </small>
+                            <small class="text-muted d-block mb-1">
+                                <strong>Areas:</strong> ${areas || 'N/A'}
+                            </small>
+                            <small class="text-muted d-block mb-1">
+                                <strong>Audience:</strong> ${audiences || 'N/A'}
+                            </small>
+                            <small class="text-muted d-block mb-1">
+                                <strong>Instructors:</strong> ${instructors || 'N/A'}
+                            </small>
+                        </div>
+
+                        ${this.createOfferingsSection(workshop)}
+
+                        <div class="mt-2">
+                            ${tags}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    createOfferingsSection(workshop) {
+        const offerings = workshop.offerings || [];
+        const timeframe = this.filters.timeframe || 'upcoming';
+        const nowISO = this.now.toISOString();
+        
+        // Filter offerings based on current timeframe
+        const filteredOfferings = offerings.filter(offering => {
+            if (timeframe === 'upcoming') {
+                return offering.start > nowISO;
+            } else {
+                return offering.start <= nowISO;
+            }
+        });
+
+        if (filteredOfferings.length === 0) {
+            const message = timeframe === 'upcoming' ? 'No upcoming sessions scheduled' : 'No past sessions recorded';
+            return `<p class="text-muted mb-2"><small>${message}</small></p>`;
+        }
+
+        const sectionTitle = timeframe === 'upcoming' ? 'Upcoming Sessions' : 'Past Sessions';
+        return `
+            <div class="offerings mb-2">
+                <strong class="d-block mb-2"><i class="bi bi-calendar-event"></i> ${sectionTitle}:</strong>
+                ${filteredOfferings.map(offering => {
+                    const date = new Date(offering.start);
+                    const endDate = new Date(offering.end);
+                    return `
+                        <div class="offering-item mb-2 p-2 border rounded bg-light">
+                            <small class="d-block">
+                                <strong>${date.toLocaleDateString('en-US', { 
+                                    weekday: 'short', 
+                                    month: 'short', 
+                                    day: 'numeric', 
+                                    year: 'numeric' 
+                                })}</strong>
+                            </small>
+                            <small class="d-block text-muted">
+                                ${date.toLocaleTimeString('en-US', { 
+                                    hour: '2-digit', 
+                                    minute: '2-digit' 
+                                })} - ${endDate.toLocaleTimeString('en-US', { 
+                                    hour: '2-digit', 
+                                    minute: '2-digit' 
+                                })}
+                            </small>
+                            <small class="d-block text-muted">
+                                <i class="bi bi-geo-alt"></i> ${offering.location || 'TBA'}
+                            </small>
+                            <small class="d-block text-muted">
+                                <i class="bi bi-person-check"></i> Capacity: ${offering.capacity || 'N/A'}
+                            </small>
+                            ${timeframe === 'upcoming' ? `
+                            <div class="mt-2 d-flex gap-1 flex-wrap">
+                                ${offering.registration_url ? 
+                                    `<a href="${offering.registration_url}" class="btn btn-sm btn-primary" target="_blank">
+                                        <i class="bi bi-box-arrow-up-right"></i> Register
+                                    </a>` : `<a href="#" class="btn btn-sm btn-secondary disabled">
+                                        <i class="bi bi-hourglass-split"></i> Opens soon
+                                    </a>`
+                                }
+                                ${this.createAddToCalendarButton(offering, workshop)}
+                            </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        `;
+    }
+
+    createAddToCalendarButton(offering, workshop) {
+        // Build event description
+        let description = workshop.description || workshop.summary || '';
+        description += '\n\n---\n';
+        if (workshop.format_label) description += `Format: ${workshop.format_label}\n`;
+        
+        const instructorNames = (workshop.instructors || []).map(i => i.name).join(', ');
+        if (instructorNames) description += `Instructor(s): ${instructorNames}\n`;
+        if (offering.registration_url) description += `\nRegister: ${offering.registration_url}`;
+
+        const event = {
+            title: workshop.title,
+            description: description,
+            location: offering.location || 'TBA',
+            start: new Date(offering.start),
+            end: new Date(offering.end),
+            url: offering.registration_url || ''
+        };
+
+        return AddToCalendar.createDropdownButton(event, 'btn-sm btn-outline-secondary');
+    }
+
+    updateResultsCount() {
+        const count = this.filteredWorkshops.length;
+        const total = this.db.query('SELECT COUNT(*) as count FROM workshops WHERE is_active = 1')[0].count;
+        document.getElementById('resultsCount').textContent = 
+            `Showing ${count} of ${total} workshop${total !== 1 ? 's' : ''}`;
+    }
+
+    showError(message) {
+        const workshopList = document.getElementById('workshopList');
+        workshopList.innerHTML = `
+            <div class="col-12">
+                <div class="alert alert-danger" role="alert">
+                    <i class="bi bi-exclamation-triangle"></i> ${message}
+                </div>
+            </div>
+        `;
+    }
+
+    getFiltersFromURL() {
+        const params = new URLSearchParams(window.location.search);
+
+        return {
+            search: params.get('search') || '',
+            area: params.get('area') || '',
+            audience: params.get('audience') || '',
+            format: params.get('format') || '',
+            department: params.get('department') || '',
+            instructor: params.get('instructor') || '',
+            timeframe: params.get('timeframe') || 'upcoming'
+        };
+    }
+    
+    updateURL() {
+        const params = new URLSearchParams();
+
+        Object.keys(this.filters).forEach(key => {
+            if (this.filters[key]) {
+                params.set(key, this.filters[key]);
+            }
+        });
+
+        const newURL = params.toString() 
+            ? `${window.location.pathname}?${params.toString()}`
+            : window.location.pathname;
+
+        window.history.pushState({}, '', newURL);
+    }
+
+    /**
+     * Update active filters display with dismissible pills
+     */
+    updateActiveFiltersDisplay() {
+        const container = document.getElementById('activeFilters');
+        const pills = [];
+
+        // Search filter
+        if (this.filters.search) {
+            pills.push(this.createFilterPill('search', `Search: "${this.filters.search}"`));
+        }
+
+        // Area filter
+        if (this.filters.area) {
+            const area = this.lookups.areas.find(a => a.id === this.filters.area);
+            if (area) pills.push(this.createFilterPill('area', `Area: ${area.label}`));
+        }
+
+        // Audience filter
+        if (this.filters.audience) {
+            const audience = this.lookups.audiences.find(a => a.id === this.filters.audience);
+            if (audience) pills.push(this.createFilterPill('audience', `Audience: ${audience.label}`));
+        }
+
+        // Format filter
+        if (this.filters.format) {
+            const format = this.lookups.formats.find(f => f.id === this.filters.format);
+            if (format) pills.push(this.createFilterPill('format', `Format: ${format.label}`));
+        }
+
+        // Department filter
+        if (this.filters.department) {
+            const dept = this.lookups.departments.find(d => d.id === this.filters.department);
+            if (dept) pills.push(this.createFilterPill('department', `Department: ${dept.label}`));
+        }
+
+        // Instructor filter
+        if (this.filters.instructor) {
+            const instructor = this.lookups.instructors.find(i => i.id === this.filters.instructor);
+            if (instructor) pills.push(this.createFilterPill('instructor', `Instructor: ${instructor.name}`));
+        }
+
+        container.innerHTML = pills.join('');
+        
+        // Show/hide the container based on whether there are active filters
+        const filtersContainer = document.getElementById('activeFiltersContainer');
+        if (pills.length > 0) {
+            filtersContainer.classList.add('has-filters');
+        } else {
+            filtersContainer.classList.remove('has-filters');
+        }
+    }
+
+    /**
+     * Create a dismissible filter pill
+     * @param {string} filterKey - The filter key (search, area, etc.)
+     * @param {string} label - Display label
+     * @returns {string} HTML for the pill
+     */
+    createFilterPill(filterKey, label) {
+        return `
+            <span class="badge bg-primary me-1 mb-1 filter-pill" data-filter="${filterKey}">
+                ${label}
+                <i class="bi bi-x-circle ms-1" style="cursor: pointer;" onclick="app.removeFilter('${filterKey}')"></i>
+            </span>
+        `;
+    }
+
+    /**
+     * Remove a specific filter
+     * @param {string} filterKey - The filter key to remove
+     */
+    removeFilter(filterKey) {
+        this.filters[filterKey] = '';
+        
+        // Update the corresponding input/select element
+        if (filterKey === 'search') {
+            document.getElementById('searchInput').value = '';
+        } else {
+            const elementId = filterKey + 'Filter';
+            const element = document.getElementById(elementId);
+            if (element) element.value = '';
+        }
+        
+        this.filterAndDisplayWorkshops();
+    }
+
+    /**
+     * Subscribe to calendar with current filters
+     * Opens calendar app with subscription prompt
+     */
+    subscribeToCalendar() {
+        if (this.filteredWorkshops.length === 0) {
+            alert('No workshops match your current filters. Please adjust your filters and try again.');
+            return;
+        }
+
+        const filterHash = this.getFilterHash();
+        const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
+        const icsUrl = `${baseUrl}calendars/${filterHash}.ics`;
+        
+        this.showSubscriptionModal(icsUrl);
+    }
+
+    /**
+     * Download ICS file for current filtered workshops
+     */
+    downloadICS() {
+        if (this.filteredWorkshops.length === 0) {
+            alert('No workshops match your current filters. Please adjust your filters and try again.');
+            return;
+        }
+
+        // Convert workshops to legacy format for ICS generator
+        const workshopsForICS = this.filteredWorkshops.map(w => ({
+            ...w,
+            instructor_ids: (w.instructors || []).map(i => i.id),
+            area_ids: (w.areas || []).map(a => a.id)
+        }));
+
+        const icsContent = this.icalGenerator.generate(workshopsForICS);
+        const filename = this.generateFilename();
+        
+        ICalGenerator.downloadICS(icsContent, filename);
+    }
+
+    /**
+     * Generate a descriptive filename based on current filters
+     * @returns {string} Filename for ICS file
+     */
+    generateFilename() {
+        let parts = ['rds-workshops'];
+        
+        if (this.filters.area) {
+            const area = this.lookups.areas.find(a => a.id === this.filters.area);
+            if (area) parts.push(area.label.toLowerCase().replace(/\s+/g, '-'));
+        }
+        
+        if (this.filters.format) {
+            const format = this.lookups.formats.find(f => f.id === this.filters.format);
+            if (format) parts.push(format.label.toLowerCase().replace(/\s+/g, '-'));
+        }
+        
+        if (this.filters.audience) {
+            const audience = this.lookups.audiences.find(a => a.id === this.filters.audience);
+            if (audience) parts.push(audience.label.toLowerCase().replace(/\s+/g, '-'));
+        }
+        
+        return parts.join('-') + '.ics';
+    }
+
+    /**
+     * Generate a hash for current filter state
+     * @returns {string} Filter hash
+     */
+    getFilterHash() {
+        const filterString = JSON.stringify(this.filters);
+        let hash = 0;
+        for (let i = 0; i < filterString.length; i++) {
+            const char = filterString.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash;
+        }
+        return Math.abs(hash).toString(36);
+    }
+
+    /**
+     * Show modal with subscription instructions
+     * @param {string} icsUrl - URL to the ICS file
+     */
+    showSubscriptionModal(icsUrl) {
+        const modal = document.createElement('div');
+        modal.className = 'modal fade';
+        modal.innerHTML = `
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="bi bi-bell"></i> Get Calendar Reminders</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Don't miss these workshops!</strong></p>
+                        <p>Download a calendar file with automatic reminders so you don't forget to attend.</p>
+
+                        <p class="mb-2"><strong>How to import to your calendar:</strong></p>
+                        <ul class="small">
+                            <li><strong><i class="bi bi-google"></i> Google Calendar:</strong> Settings → Import & Export → Import</li>
+                            <li><strong><i class="bi bi-apple"></i> Apple Calendar:</strong> Double-click the downloaded file</li>
+                            <li><strong><i class="bi bi-microsoft"></i> Outlook:</strong> File → Open & Export → Import/Export</li>
+                        </ul>
+
+                        <div class="alert alert-info mt-3 mb-0">
+                            <i class="bi bi-funnel"></i> 
+                            <strong>Workshops included:</strong><br>
+                            ${this.getFilterSummary()}
+                            <div class="mt-2 small text-muted">
+                                (${this.filteredWorkshops.length} workshop${this.filteredWorkshops.length !== 1 ? 's' : ''})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="downloadFromModal">
+                            <i class="bi bi-download"></i> Download Calendar File
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        const bootstrapModal = new bootstrap.Modal(modal);
+        bootstrapModal.show();
+        
+        // Handle download from modal
+        modal.querySelector('#downloadFromModal').addEventListener('click', () => {
+            this.downloadICS();
+            bootstrapModal.hide();
+        });
+        
+        // Clean up modal after hiding
+        modal.addEventListener('hidden.bs.modal', () => {
+            modal.remove();
+        });
+    }
+
+    /**
+     * Get a human-readable summary of current filters
+     * @returns {string} Filter summary HTML
+     */
+    getFilterSummary() {
+        const active = [];
+        
+        const timeframe = this.filters.timeframe || 'upcoming';
+        active.push(`Timeframe: ${timeframe.charAt(0).toUpperCase() + timeframe.slice(1)}`);
+        
+        if (this.filters.search) {
+            active.push(`Search: "${this.filters.search}"`);
+        }
+        if (this.filters.area) {
+            const area = this.lookups.areas.find(a => a.id === this.filters.area);
+            if (area) active.push(`Area: ${area.label}`);
+        }
+        if (this.filters.audience) {
+            const audience = this.lookups.audiences.find(a => a.id === this.filters.audience);
+            if (audience) active.push(`Audience: ${audience.label}`);
+        }
+        if (this.filters.format) {
+            const format = this.lookups.formats.find(f => f.id === this.filters.format);
+            if (format) active.push(`Format: ${format.label}`);
+        }
+        if (this.filters.department) {
+            const dept = this.lookups.departments.find(d => d.id === this.filters.department);
+            if (dept) active.push(`Department: ${dept.label}`);
+        }
+        if (this.filters.instructor) {
+            const instructor = this.lookups.instructors.find(i => i.id === this.filters.instructor);
+            if (instructor) active.push(`Instructor: ${instructor.name}`);
+        }
+        
+        return active.length > 0 ? active.join('<br>') : 'No filters applied (all workshops)';
+    }
+}
+
+// Initialize the app when DOM is ready
+let app;
+document.addEventListener('DOMContentLoaded', () => {
+    app = new WorkshopCatalogue();
+});
