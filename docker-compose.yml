@@ -1,6 +1,19 @@
 version: '3.8'
 
 services:
+  # Workshop website (preview your changes)
+  web:
+    image: python:3.11-slim
+    container_name: rds-workshops-web
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: python3 -m http.server 8080
+    restart: unless-stopped
+
+  # Datasette editing interface
   datasette:
     build: .
     container_name: rds-workshops-datasette
@@ -23,7 +36,7 @@ services:
       - DATASETTE_SECRET=your-secret-key-change-this-in-production
     restart: unless-stopped
 
-  # Optional: Add a backup service
+  # Optional: Automatic hourly backups
   backup:
     image: alpine:latest
     container_name: rds-workshops-backup
