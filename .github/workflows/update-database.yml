@@ -1,0 +1,65 @@
+name: Update Workshop Database & Calendars
+
+on:
+  push:
+    branches:
+      - main
+      - datasette
+    paths:
+      - 'assets/data/workshops.json'
+      - 'scripts/json-to-sqlite.js'
+      - 'scripts/generate-ics.js'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  regenerate-database:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write  # Needed to commit back to repo
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for proper commits
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Regenerate SQLite database
+        run: node scripts/json-to-sqlite.js
+      
+      - name: Create calendars directory
+        run: mkdir -p calendars
+      
+      - name: Generate ICS calendar files
+        run: node scripts/generate-ics.js
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet assets/data/workshops.db calendars/; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit updated files
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add assets/data/workshops.db calendars/*.ics
+          git commit -m "🤖 Auto-update workshops.db and calendar files from workshops.json"
+          git push
+      
+      - name: No changes detected
+        if: steps.check_changes.outputs.changed == 'false'
+        run: echo "✅ Database and calendars are already up to date"

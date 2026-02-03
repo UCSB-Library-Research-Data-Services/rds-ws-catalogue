@@ -1,0 +1,34 @@
+{
+  "name": "rdsworkshopscatalogue",
+  "version": "2.0.0",
+  "description": "RDS Workshops Catalogue - SQLite-powered workshop discovery platform with calendar subscriptions",
+  "main": "index.js",
+  "scripts": {
+    "build:db": "node scripts/json-to-sqlite.js",
+    "build:calendars": "node scripts/generate-ics.js",
+    "build": "npm run build:db && npm run build:calendars",
+    "serve": "python3 -m http.server 8080",
+    "dev": "npm run build && npm run serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UCSB-Library-Research-Data-Services/rds-ws-catalogue.git"
+  },
+  "keywords": [
+    "workshops",
+    "sqlite",
+    "calendar",
+    "rds",
+    "ucsb"
+  ],
+  "author": "UCSB Library Research Data Services",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/UCSB-Library-Research-Data-Services/rds-ws-catalogue/issues"
+  },
+  "homepage": "https://github.com/UCSB-Library-Research-Data-Services/rds-ws-catalogue#readme",
+  "dependencies": {
+    "better-sqlite3": "^12.6.2"
+  }
+}
