@@ -8,7 +8,10 @@
     "build:calendars": "node scripts/generate-ics.js",
     "build": "npm run build:db && npm run build:calendars",
     "serve": "python3 -m http.server 8080",
-    "dev": "npm run build && npm run serve"
+    "dev": "npm run build && npm run serve",
+    "datasette": "docker-compose up",
+    "datasette:down": "docker-compose down",
+    "datasette:backup": "docker-compose --profile backup up -d"
   },
   "repository": {
     "type": "git",

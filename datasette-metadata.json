@@ -1,0 +1,128 @@
+{
+  "title": "RDS Workshops Database",
+  "description": "UCSB Library Research Data Services Workshop Catalogue",
+  "license": "ISC",
+  "license_url": "https://opensource.org/licenses/ISC",
+  "source": "GitHub",
+  "source_url": "https://github.com/UCSB-Library-Research-Data-Services/rds-ws-catalogue",
+  "databases": {
+    "workshops": {
+      "title": "RDS Workshops",
+      "description": "Workshop catalogue with offerings, instructors, and metadata",
+      "tables": {
+        "workshops": {
+          "title": "Workshops",
+          "description": "Workshop definitions and descriptions",
+          "sort_desc": "title",
+          "facets": ["format_id", "is_active"],
+          "columns": {
+            "id": "Unique workshop identifier",
+            "title": "Workshop title",
+            "summary": "Brief summary",
+            "description": "Full description",
+            "series_id": "Part of a series (optional)",
+            "format_id": "Format: online, in-person, hybrid",
+            "is_active": "Active status (1=active, 0=inactive)"
+          }
+        },
+        "offerings": {
+          "title": "Offerings",
+          "description": "Scheduled workshop sessions",
+          "sort_desc": "start",
+          "facets": ["quarter", "year", "workshop_id"],
+          "columns": {
+            "id": "Unique offering identifier",
+            "workshop_id": "Associated workshop",
+            "start": "Start date/time (ISO 8601)",
+            "end": "End date/time (ISO 8601)",
+            "quarter": "Academic quarter",
+            "year": "Academic year",
+            "location": "Physical or virtual location",
+            "registration_url": "Registration link",
+            "capacity": "Maximum participants"
+          }
+        },
+        "instructors": {
+          "title": "Instructors",
+          "description": "Workshop instructors and facilitators",
+          "sort": "name",
+          "columns": {
+            "id": "Unique instructor identifier",
+            "name": "Full name",
+            "department_id": "Department affiliation",
+            "title": "Job title",
+            "email": "Contact email"
+          }
+        },
+        "departments": {
+          "title": "Departments",
+          "description": "Library departments",
+          "sort": "label"
+        },
+        "formats": {
+          "title": "Formats",
+          "description": "Workshop delivery formats",
+          "sort": "label",
+          "columns": {
+            "id": "Format identifier",
+            "label": "Format name",
+            "icon": "Bootstrap icon class"
+          }
+        },
+        "areas": {
+          "title": "Research Areas",
+          "description": "Research area classifications",
+          "sort": "label"
+        },
+        "audiences": {
+          "title": "Audiences",
+          "description": "Target audience groups",
+          "sort": "label"
+        },
+        "series": {
+          "title": "Series",
+          "description": "Workshop series definitions",
+          "sort": "title"
+        },
+        "workshop_instructors": {
+          "title": "Workshop ↔ Instructors",
+          "description": "Many-to-many relationship: workshops to instructors"
+        },
+        "workshop_areas": {
+          "title": "Workshop ↔ Areas",
+          "description": "Many-to-many relationship: workshops to research areas"
+        },
+        "workshop_audiences": {
+          "title": "Workshop ↔ Audiences",
+          "description": "Many-to-many relationship: workshops to audiences"
+        },
+        "workshop_departments": {
+          "title": "Workshop ↔ Departments",
+          "description": "Many-to-many relationship: workshops to departments"
+        },
+        "workshop_tags": {
+          "title": "Workshop Tags",
+          "description": "Keyword tags for workshops"
+        }
+      },
+      "queries": {
+        "active_workshops": {
+          "title": "Active Workshops",
+          "sql": "SELECT w.*, f.label as format FROM workshops w LEFT JOIN formats f ON w.format_id = f.id WHERE w.is_active = 1 ORDER BY w.title"
+        },
+        "upcoming_offerings": {
+          "title": "Upcoming Offerings",
+          "sql": "SELECT o.*, w.title as workshop FROM offerings o JOIN workshops w ON o.workshop_id = w.id WHERE o.start > datetime('now') ORDER BY o.start"
+        },
+        "workshops_by_instructor": {
+          "title": "Workshops by Instructor",
+          "sql": "SELECT i.name, w.title, w.id FROM instructors i JOIN workshop_instructors wi ON i.id = wi.instructor_id JOIN workshops w ON wi.workshop_id = w.id WHERE w.is_active = 1 ORDER BY i.name, w.title"
+        },
+        "workshops_full": {
+          "title": "Workshops (Full Details)",
+          "sql": "SELECT w.id, w.title, w.description, f.label as format, GROUP_CONCAT(DISTINCT a.label) as areas, GROUP_CONCAT(DISTINCT au.label) as audiences, GROUP_CONCAT(DISTINCT i.name) as instructors FROM workshops w LEFT JOIN formats f ON w.format_id = f.id LEFT JOIN workshop_areas wa ON w.id = wa.workshop_id LEFT JOIN areas a ON wa.area_id = a.id LEFT JOIN workshop_audiences wau ON w.id = wau.workshop_id LEFT JOIN audiences au ON wau.audience_id = au.id LEFT JOIN workshop_instructors wi ON w.id = wi.workshop_id LEFT JOIN instructors i ON wi.instructor_id = i.id WHERE w.is_active = 1 GROUP BY w.id ORDER BY w.title"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  datasette:
+    build: .
+    container_name: rds-workshops-datasette
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./assets/data:/data
+      - ./datasette-metadata.json:/metadata.json:ro
+    command: >
+      datasette /data/workshops.db
+      --host 0.0.0.0
+      --port 8001
+      --reload
+      --metadata /metadata.json
+      --setting sql_time_limit_ms 5000
+      --setting allow_download on
+      --setting max_returned_rows 1000
+      --cors
+    environment:
+      - DATASETTE_SECRET=your-secret-key-change-this-in-production
+    restart: unless-stopped
+
+  # Optional: Add a backup service
+  backup:
+    image: alpine:latest
+    container_name: rds-workshops-backup
+    volumes:
+      - ./assets/data:/data
+      - ./backups:/backups
+    command: sh -c "while true; do cp /data/workshops.db /backups/workshops-$$(date +%Y%m%d-%H%M%S).db && sleep 3600; done"
+    profiles:
+      - backup
